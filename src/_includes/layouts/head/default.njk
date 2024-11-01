@@ -1,0 +1,26 @@
+{#- This is the default head's page content. -#}
+
+<head>
+    {#- Common part to all pages #}
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="generator" content="{{ eleventy.generator }}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    {#- Specific parts related to the type of the page to insert a title, a css or inline js -#}
+    {% block meta %}
+    <title>{{ site.name }}</title>
+    {% if site.description -%}
+    <meta name="description" content="{{ site.description | truncate(150) | escape }}" />
+    {% endif %}
+    {%- endblock -%}
+
+    {% block ajax %}
+    {%- endblock -%}
+
+    {% block css -%}
+    <link rel="stylesheet" href="/css/base.css" type="text/css" />
+    {%- endblock %}
+
+    {# {%- favicons "src/favicon.svg" -%} #}
+</head>

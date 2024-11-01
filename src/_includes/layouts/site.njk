@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+{# specific head for this page -#}
+{% include_section "layouts/head", type %}
+
+<body>
+    <div class="header fixed-top">
+        <div class="container">
+            <div class="navbar navbar-expand-xl navbar-light">
+                {% include_section "layouts/header", type %}
+            </div>
+        </div>
+    </div>
+
+    <div class="page">
+        <aside id="extra" class="container ecran">
+            {% include_section "layouts/extra", type %}
+        </aside>
+
+        <nav class="container nav-breadcrumb" aria-label="Breadcrumb">
+            {% include_section "layouts/breadcrumb", type %}
+        </nav>
+
+        <main id="content" class="container">
+            {% include_section "layouts/content", type %}
+        </main>
+
+        <aside id="aside" class="container aside secondary">
+            {% include_section "layouts/aside", type %}
+        </aside>
+
+        <footer id="footer" class="container footer">
+            {% include_section "layouts/footer", type %}
+        </footer>
+    </div>
+</body>
