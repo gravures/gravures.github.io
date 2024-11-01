@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "ideographe.fr website",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "eleventy --serve",
     "build": "eleventy",
@@ -13,5 +14,10 @@
   "license": "GPL-3.0",
   "dependencies": {
     "@11ty/eleventy": "^3.0.0"
+  },
+  "devDependencies": {
+    "eleventy-plugin-gen-favicons": "^1.1.3",
+    "html-prettify": "^1.0.7",
+    "sass": "^1.80.5"
   }
 }
