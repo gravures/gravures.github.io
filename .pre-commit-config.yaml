@@ -15,7 +15,7 @@ repos:
     rev: v1.26.8
     hooks:
       - id: typos
-        args: []
+        args: [--exclude=src/**/*.svg]
   # Pre-commit hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
