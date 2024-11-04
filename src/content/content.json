@@ -1,0 +1,4 @@
+{
+    "layout": "layouts/site.njk",
+    "type": "default"
+}
