@@ -1,37 +1,37 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="{{ lang }}">
 
 {# specific head for this page -#}
-{% include_section "layouts/head", type %}
+{% include_partial "head", type %}
 
 <body>
     <div class="header fixed-top">
         <div class="container">
             <div class="navbar navbar-expand-xl navbar-light">
-                {% include_section "layouts/header", type %}
+                {% include_partial "header", type %}
             </div>
         </div>
     </div>
 
     <div class="page">
         <aside id="extra" class="container ecran">
-            {% include_section "layouts/extra", type %}
+            {% include_partial "extra", type %}
         </aside>
 
         <nav class="container nav-breadcrumb" aria-label="Breadcrumb">
-            {% include_section "layouts/breadcrumb", type %}
+            {% include_partial "breadcrumb", type %}
         </nav>
 
         <main id="content" class="container">
-            {% include_section "layouts/content", type %}
+            {% include_partial "content", type %}
         </main>
 
         <aside id="aside" class="container aside secondary">
-            {% include_section "layouts/aside", type %}
+            {% include_partial "aside", type %}
         </aside>
 
         <footer id="footer" class="container footer">
-            {% include_section "layouts/footer", type %}
+            {% include_partial "footer", type %}
         </footer>
     </div>
 </body>
