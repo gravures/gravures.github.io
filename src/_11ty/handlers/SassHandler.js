@@ -1,8 +1,9 @@
 import path from "path";
-import sass from "sass";
+import * as sass from "sass";
 
 export default {
     outputFileExtension: "css",
+    useLayouts: false,
     compile: async function (inputContent, inputPath) {
         let parsed = path.parse(inputPath);
         if (parsed.name.startsWith("_")) {
@@ -28,8 +29,16 @@ export default {
         // needs to know about the dependencies a template file relies on.
         this.addDependencies(inputPath, result.loadedUrls);
 
-        return async (data) => {
+        return async () => {
             return result.css;
         };
-    }
+    },
+    compileOptions: {
+        permalink: function (contents, inputPath) {
+            let parsed = path.parse(inputPath);
+            return async () => {
+                return path.join("css", parsed.name) + ".css";
+            };
+        }
+    },
 };
