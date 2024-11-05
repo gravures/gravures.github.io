@@ -1,4 +1,14 @@
 {
+    "languages": [
+        {
+            "code": "fr",
+            "label": "français"
+        },
+        {
+            "code": "en",
+            "label": "english"
+        }
+    ],
     "en": {
         "name": "ideographe",
         "description": "A gaphics design journey"

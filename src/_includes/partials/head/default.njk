@@ -9,9 +9,9 @@
 
     {#- Specific parts related to the type of the page to insert a title, a css or inline js -#}
     {% block meta %}
-    <title>{{ site[lang].name }}</title>
-    {% if site[lang].description -%}
-    <meta name="description" content="{{ site[lang].description | truncate(150) | escape }}" />
+    <title>{{ site[page.lang].name }}</title>
+    {% if site[page.lang].description -%}
+    <meta name="description" content="{{ site[page.lang].description | truncate(150) | escape }}" />
     {% endif %}
     {%- endblock -%}
 
