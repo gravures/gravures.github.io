@@ -1,9 +1,10 @@
 import { EleventyI18nPlugin } from "@11ty/eleventy";
 import faviconsPlugin from "eleventy-plugin-gen-favicons";
+import { readFileSync } from "fs";
+import path from "path";
 import SassHandler from "./src/_11ty/handlers/SassHandler.js";
 import include_partial from "./src/_11ty/shortcodes/include_partial.js";
 import html_prettify from "./src/_11ty/transforms/html_prettify.js";
-
 
 export default function (eleventyConfig) {
     // ignore directories
@@ -29,6 +30,14 @@ export default function (eleventyConfig) {
 
     // transforms
     eleventyConfig.addTransform("htmlprettify", html_prettify);
+
+    // bundled js
+    let pkg = JSON.parse(readFileSync(path.resolve("./package.json")));
+    for (let bundle in pkg.bundleDependencies) {
+        let dir = path.join("node_modules", pkg.bundleDependencies[bundle])
+        eleventyConfig.addPassthroughCopy(dir);
+        console.log(dir);
+    }
 
     // 11ty configuration
     return {
