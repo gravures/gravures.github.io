@@ -1,0 +1,2 @@
+[default]
+extend-words = { espace = "espace", ein = "ein", photographes = "photographes", fille = "fille" }
