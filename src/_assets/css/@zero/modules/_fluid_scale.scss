@@ -1,0 +1,41 @@
+@use "sass:list";
+@use "sass:meta";
+@use "m";
+@use "clamp";
+
+/// Compute a fluid font scale.
+///
+@function calculate($min_scale, $max_scale, $min_width, $max_width, $relative_to: "viewport", $use_px: true) {
+  @if list.length($min_scale) != list.length($max_scale) {
+    @error "min_scale and max_scale should have the same length.";
+  }
+  $len: list.length($min_scale);
+  $steps: ();
+
+  @for $i from 1 to $len + 1 {
+    // $min_font_size: list.nth($min_scale, $i);
+    // $max_font_size: list.nth($max_scale, $i);
+    // $min_size: m.lerp($min_font_size, $max_font_size, m.ilerp($min_width, $max_width, $min_width));
+    // $max_size: m.lerp($min_font_size, $max_font_size, m.ilerp($min_width, $max_width, $max_width));
+    // $clp: clamp.calc_clamp($min_width, $max_width, $min_size, $max_size, $relative_to: $relative_to, $use_px: $use_px);
+    $clp: clamp.calc_clamp(
+      $min_width,
+      $max_width,
+      list.nth($min_scale, $i),
+      list.nth($max_scale, $i),
+      $relative_to: $relative_to,
+      $use_px: $use_px
+    );
+    $steps: list.append($steps, $clp);
+  }
+  @return $steps;
+}
+
+///
+@mixin render($prefix, $args...) {
+  $i: 0;
+  @each $step in calculate($args...) {
+    --#{$prefix}#{$i}: #{$step};
+    $i: $i + 1;
+  }
+}
