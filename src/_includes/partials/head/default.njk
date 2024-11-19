@@ -1,4 +1,12 @@
 {#- This is the default head's page content. -#}
+{% javascript %}
+{% include "../../../_assets/js/cssGridViewer/css-grid-viewer.js" %}
+document.addEventListener("DOMContentLoaded", function() {
+new CssGridViewer({
+opacity: 0.8
+});
+});
+{% endjavascript %}
 
 <head>
     {#- Common part to all pages #}
@@ -13,14 +21,16 @@
     {% if site[page.lang].description -%}
     <meta name="description" content="{{ site[page.lang].description | truncate(150) | escape }}" />
     {% endif %}
-    {%- endblock -%}
+    {% endblock %}
 
-    {% block ajax %}
-    {%- endblock -%}
+    {% block js %}
+    {#
+    <script src="{% getBundleFileUrl 'javascript' %}"></script> #}
+    {% endblock %}
 
-    {% block css -%}
-    <link rel="stylesheet" href="/css/main.css" type="text/css" />
-    {%- endblock %}
+    {% block css %}
+    <link rel=" stylesheet" href="/css/main.css" type="text/css" />
+    {% endblock %}
 
     {# {%- favicons "src/favicon.svg" -%} #}
 </head>

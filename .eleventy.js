@@ -7,8 +7,7 @@ import include_partial from "./src/_11ty/shortcodes/include_partial.js";
 import html_prettify from "./src/_11ty/transforms/html_prettify.js";
 
 export default function (eleventyConfig) {
-    // ignore directories
-    eleventyConfig.ignores.add("**/_11ty/**");
+    eleventyConfig.ignores.add("./src/_assets/js/**/*");
 
     // globals
     eleventyConfig.addGlobalData("layout", "layouts/site.njk");
@@ -31,7 +30,14 @@ export default function (eleventyConfig) {
     // transforms
     eleventyConfig.addTransform("htmlprettify", html_prettify);
 
-    // bundled js
+    // bundles
+    // site js
+    eleventyConfig.addBundle("javascript", {
+        toFileDirectory: "js",
+        outputFileExtension: "js",
+    });
+
+    // node.js libraries
     let pkg = JSON.parse(readFileSync(path.resolve("./package.json")));
     for (let bundle in pkg.bundleDependencies) {
         let dir = path.join("node_modules", pkg.bundleDependencies[bundle])
