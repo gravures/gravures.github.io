@@ -5,33 +5,30 @@
 {% include_partial "head", type %}
 
 <body>
-    <div class="header fixed-top">
-        <div class="container">
-            <div class="navbar navbar-expand-xl navbar-light">
-                {% include_partial "header", type %}
-            </div>
-        </div>
-    </div>
+
+    <header>
+        {% include_partial "header", type %}
+    </header>
 
     <div class="page">
-        <aside id="extra" class="container ecran">
+        <aside>
             {% include_partial "extra", type %}
         </aside>
 
-        <nav class="container nav-breadcrumb" aria-label="Breadcrumb">
+        <nav aria-label="Breadcrumb">
             {% include_partial "breadcrumb", type %}
         </nav>
 
-        <main id="content" class="container">
+        <main>
             {% include_partial "content", type %}
         </main>
 
-        <aside id="aside" class="container aside secondary">
+        <aside>
             {% include_partial "aside", type %}
         </aside>
-
-        <footer id="footer" class="container footer">
-            {% include_partial "footer", type %}
-        </footer>
     </div>
+
+    <footer class="break">
+        {% include_partial "footer", type %}
+    </footer>
 </body>
