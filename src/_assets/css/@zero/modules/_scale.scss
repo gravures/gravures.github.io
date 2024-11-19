@@ -1,0 +1,59 @@
+@use "sass:map";
+@use "sass:math";
+@use "sass:list";
+
+$_ratios: (
+    "minor_second": 1.067,
+    "major_second": 1.125,
+    "minor_third": 1.2,
+    "major_third": 1.25,
+    "perfect_fourth": 1.333,
+    "augmented_fourth": 1.414,
+    "perfect_fifth": 1.5,
+    "golden_ratio": 1.618,
+    "major_sixth": 1.667,
+    "minor_seventh": 1.778,
+    "major_seventh": 1.875,
+    "octave": 2
+);
+
+@function ratio($name) {
+    @return map.get($_ratios, $name) or 2;
+}
+
+@function classical($root: 1, $intervals: 5, $ratio: 2, $steps: 5, $start: 0) {
+    $scale: ();
+    @for $i from $start to $steps + $start {
+        $scale: list.append($scale, $root * math.pow($ratio, math.div($i, $intervals)));
+    }
+    @return $scale;
+}
+
+@function tritonic($root: 1, $steps: 6, $start: -1) {
+    @return classical($root, 3, 2, $steps, $start);
+}
+
+@function tetratonic($root: 1, $steps: 6, $start: -1) {
+    @return classical($root, 4, 2, $steps, $start);
+}
+
+@function golden_ditonic($root: 1, $steps: 6, $start: -1) {
+    @return classical($root, 2, 1.618, $steps, $start);
+}
+
+@function modular($root: 1, $ratio: 1.2, $steps: 7, $start: 0) {
+    $scale: ();
+    @for $i from $start to $steps + $start {
+        $scale: list.append($scale, $root * (math.pow($ratio, $i)));
+    }
+    @return $scale;
+}
+
+///
+@mixin render($prefix, $scale) {
+    $i: 0;
+    @each $step in $scale {
+        --#{$prefix}#{$i}: #{$step};
+        $i: $i + 1;
+    }
+}
