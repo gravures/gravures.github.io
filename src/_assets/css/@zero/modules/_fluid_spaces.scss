@@ -1,0 +1,201 @@
+@use "sass:list";
+@use "sass:meta";
+@use "sass:map";
+@use "sass:string";
+@use "lib";
+@use "m";
+@use "clamp";
+
+@function newList($value) {
+    $list: $value, $value;
+    @return remove-nth($list, 1);
+}
+
+@function findByKey($list, $key, $value) {
+    @each $item in $list {
+        @if (map.get($item, $key) == $value) {
+            @return $item;
+        }
+    }
+    @return false;
+}
+
+@function calculateSpaceSize($config, $multiplier, $step) {
+    $minSize: math.round(map.get($config, "minSize") * $multiplier);
+    $maxSize: math.round(map.get($config, "maxSize") * $multiplier);
+
+    $label: "s";
+
+    @if ($step ==1) {
+        $label: "m";
+    } @else if ($step ==2) {
+        $label: "l";
+    } @else if ($step ==3) {
+        $label: "xl";
+    } @else if ($step > 3) {
+        $label: "#{$step - 2}xl";
+    } @else if ($step ==-1) {
+        $label: "xs";
+    } @else if ($step < -1) {
+        $label: "#{math.abs($step)}xs";
+    }
+
+    @return (
+        "label": $label,
+        "minSize": m.round_value($minSize, 4),
+        "maxSize": m.round_value($maxSize, 4),
+        "clamp":
+            clamp.calc_clamp(
+                map.get($config, "minWidth"),
+                map.get($config, "maxWidth"),
+                $minSize,
+                $maxSize,
+                $relative_to: map.get($config, "relativeTo")
+            ),
+        "clampPx":
+            clamp.calc_clamp(
+                map.get($config, "minWidth"),
+                map.get($config, "maxWidth"),
+                $minSize,
+                $maxSize,
+                $use_px: true,
+                $relative_to: map.get($config, "relativeTo")
+            )
+    );
+}
+
+@function calculateOneUpPairs($config, $sizes) {
+    $pairs: ();
+
+    @each $size in $sizes {
+        $i: list.index($sizes, $size);
+
+        @if ($i > 1) {
+            $prev: list.nth($sizes, $i - 1);
+
+            $pairs: list.append(
+                $pairs,
+                (
+                    "label": "#{map.get($prev, "label")}-#{map.get($size, "label")}",
+                    "minSize": map.get($prev, "minSize"),
+                    "maxSize": map.get($size, "maxSize"),
+                    "clamp":
+                        clamp.calc_clamp(
+                            map.get($config, "minWidth"),
+                            map.get($config, "maxWidth"),
+                            map.get($prev, "minSize"),
+                            map.get($size, "maxSize"),
+                            $relative_to: map.get($config, "relativeTo")
+                        ),
+                    "clampPx":
+                        clamp.calc_clamp(
+                            map.get($config, "minWidth"),
+                            map.get($config, "maxWidth"),
+                            map.get($prev, "minSize"),
+                            map.get($size, "maxSize"),
+                            $use_px: true,
+                            $relative_to: map.get($config, "relativeTo")
+                        )
+                )
+            );
+        }
+    }
+
+    @return $pairs;
+}
+
+@function calculateCustomPairs($config, $sizes) {
+    $pairs: ();
+    $customSizes: map.get($config, "customSizes");
+
+    @if (meta.type-of($customSizes) != "list") {
+        @return $pairs;
+    }
+
+    @each $label in $customSizes {
+        $keys: string.split($label, "-", 1);
+        $a: findByKey($sizes, "label", list.nth($keys, 1));
+        $b: findByKey($sizes, "label", list.nth($keys, 2));
+
+        @if (meta.type-of($a) == "map" and meta.type-of($b) == "map") {
+            $pairs: list.append(
+                $pairs,
+                (
+                    "label": "#{map.get($a, "label")}-#{map.get($b, "label")}",
+                    "minSize": map.get($a, "minSize"),
+                    "maxSize": map.get($b, "maxSize"),
+                    "clamp":
+                        clamp.calc_clamp(
+                            map.get($config, "minWidth"),
+                            map.get($config, "maxWidth"),
+                            map.get($a, "minSize"),
+                            map.get($b, "maxSize"),
+                            $relative_to: map.get($config, "relativeTo")
+                        ),
+                    "clampPx":
+                        clamp.calc_clamp(
+                            map.get($config, "minWidth"),
+                            map.get($config, "maxWidth"),
+                            map.get($a, "minSize"),
+                            map.get($b, "maxSize"),
+                            $use_px: true,
+                            $relative_to: map.get($config, "relativeTo")
+                        )
+                )
+            );
+        }
+    }
+
+    @return $pairs;
+}
+
+@function calculateSpaceScale($config) {
+    $sizes: newList(calculateSpaceSize($config, 1, 0));
+
+    $positiveSteps: map.get($config, "positiveSteps");
+
+    @if (meta.type-of($positiveSteps) == "list") {
+        @each $step in $positiveSteps {
+            $i: list.index($positiveSteps, $step);
+            $sizes: list.append($sizes, calculateSpaceSize($config, $step, $i));
+        }
+    }
+
+    $negativeSteps: map.get($config, "negativeSteps");
+
+    @if (meta.type-of($negativeSteps) == "list") {
+        @each $step in $negativeSteps {
+            $i: list.index($negativeSteps, $step);
+            $sizes: lib.list_prepend($sizes, calculateSpaceSize($config, $step, -1 * $i));
+        }
+    }
+
+    @return (
+        "sizes": $sizes,
+        "oneUpPairs": calculateOneUpPairs($config, $sizes),
+        "customPairs": calculateCustomPairs($config, $sizes)
+    );
+}
+
+@mixin generateSpaceScale($config) {
+    $prefix: map.get($config, "prefix") or "space-";
+    $format: "clamp";
+
+    @if (map.get($config, "usePx")) {
+        $format: "clampPx";
+    }
+
+    $scale: calculateSpaceScale($config);
+
+    @each $size in map.get($scale, "sizes") {
+        --#{$prefix}#{map.get($size, "label")}: #{map.get($size, $format)};
+    }
+
+    @each $size in map.get($scale, "oneUpPairs") {
+        --#{$prefix}#{map.get($size, "label")}: #{map.get($size, $format)};
+    }
+
+    @each $size in map.get($scale, "customPairs") {
+        --#{$prefix}#{map.get($size, "label")}: #{map.get($size, $format)};
+    }
+}
