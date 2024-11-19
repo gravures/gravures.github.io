@@ -1,0 +1,48 @@
+/// Math functions.
+@use "sass:math";
+@use "sass:meta";
+
+/// rounds a value to n digits.
+@function round_value($number, $digits: 0) {
+    $n: 1;
+
+    // $number must be a number
+    @if meta.type-of($number) !=number {
+        @warn '#{ $number } is not a number.';
+        @return $number;
+    }
+
+    // $digits must be a unitless number
+    @if meta.type-of($digits) !=number {
+        @warn '#{ $digits } is not a number.';
+        @return $number;
+    } @else if not math.is-unitless($digits) {
+        @warn '#{ $digits } has a unit.';
+        @return $number;
+    }
+
+    @if $digits == 0 {
+        @return math.round($number);
+    }
+
+    @for $i from 1 through $digits {
+        $n: $n * 10;
+    }
+
+    @return math.div(round($number * $n), $n);
+}
+
+/// Clamps a value between min and max.
+@function clamp_value($value, $min: 0, $max: 1) {
+    @return min($max, max($min, $value));
+}
+
+/// Linear interpolation.
+@function lerp($a, $b, $t) {
+    @return $a * (1 - $t) + $b * $t;
+}
+
+/// Inverse Linear interpolation.
+@function ilerp($a, $b, $value) {
+    @return clamp_value(math.div(($value - $a), ($b - $a)));
+}
