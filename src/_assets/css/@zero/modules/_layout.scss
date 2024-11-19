@@ -1,0 +1,230 @@
+/* Layout */
+@use "sass:math";
+@use "sass:list";
+
+/// classic text flow
+@mixin flow {
+    & > * + * {
+        margin-block-start: var(--flow-space, 1em);
+    }
+}
+
+/// evenly spaced flow
+@mixin grid-flow {
+    display: grid;
+    gap: var(--grid-flow-gap, 1rem);
+    justify-items: start;
+    & > * {
+        margin: 0;
+    }
+}
+
+///
+@mixin flex-group($hgap: 1rem, $vgap: 0.5rem, $align: center, $justify: start) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $vgap $hgap;
+    align-items: $align;
+    justify-content: $justify;
+}
+
+/// Auto grid columns based on min-width and gap.
+@mixin grid-columns($min-width: 25ch, $gap: 1rem, $max-columns: null) {
+    --gc-col-gap: #{$gap};
+    display: grid;
+    gap: var(--gc-col-gap);
+
+    @if $max-columns {
+        --item--max-width: calc((100% - (#{($max-columns - 1)} * var(--gc-col-gap))) / #{$max-columns});
+        grid-template-columns: repeat(auto-fill, [col] minmax(max($min-width, var(--item--max-width)), 1fr));
+    } @else {
+        grid-template-columns: repeat(auto-fit, [col] minmax(min($min-width, 100%), 1fr));
+    }
+}
+
+/// A Main 3 rows layout.
+///
+///    header
+/// ---------------
+///    content
+/// ---------------
+///    footer
+@mixin three-rows-page($inline-padding: 1rem, $gap: 0) {
+    --row-gap: #{$gap};
+    --margins: #{$inline-padding};
+    display: grid;
+    min-height: 100vh; /* fallback for dvh */
+    min-height: 100dvh;
+    grid-template-rows: auto 1fr auto;
+    gap: var(--row-gap);
+    & > * {
+        padding-inline: var(--margins);
+    }
+}
+
+/// Makes containers in grids inherit their layouts.
+@mixin subgrid(
+    $containers: (
+        "main",
+        "article"
+    )
+) {
+    & > :not(#{$containers}) {
+        @content;
+    }
+
+    & #{$containers} {
+        @content;
+        display: contents;
+
+        & > :not(#{$containers}) {
+            @content;
+        }
+    }
+}
+
+/// A columns based Grid System.
+///
+/// Auto grid columns are laid out based on max-column, min-width and gaps.
+@mixin colgrid-system(
+    $max-columns: null,
+    $min-width: 25ch,
+    $col-gap: 1rem,
+    $row-gap: 1rem,
+    $inline-margin: 1rem,
+    $content-max-width: 1400px,
+    $breakout: 3rem,
+    $subgrids: (
+        ".page",
+        "main",
+        "article"
+    )
+) {
+    // grid properties
+    --margins: #{$inline-margin};
+    --breakout: #{$breakout};
+    --col-gap: #{$col-gap};
+    --row-gap: #{$row-gap};
+
+    // block setup
+    --auto-margins: max(calc((100vw - #{$content-max-width}) / 2), var(--margins));
+    box-sizing: content-box;
+    border-inline: 1px dashed;
+    max-inline-size: $content-max-width;
+    margin-inline: var(--auto-margins);
+    padding-inline: clamp(0px, var(--breakout), var(--auto-margins) - var(--breakout));
+
+    // grid setup
+    display: grid;
+    gap: 0 var(--col-gap);
+
+    @if $max-columns {
+        --item--max-width: calc((100% - (#{($max-columns - 1)} * var(--col-gap))) / #{$max-columns});
+        grid-template-columns:
+            [content-start]
+            repeat(auto-fill, [col] minmax(max($min-width, var(--item--max-width)), 1fr))
+            [content-end];
+    } @else {
+        grid-template-columns:
+            [content-start]
+            repeat(auto-fit, [col] minmax(min($min-width, 100%), 1fr))
+            [content-end];
+    }
+
+    // recursive subgrid inheritance
+    @include subgrid(list.append($subgrids, ".row")) {
+        // default items placement
+        grid-column: content;
+    }
+
+    // structural classes
+    & .row {
+        & > ::before {
+            content: "";
+            min-height: var(--row-gap);
+            display: block;
+        }
+    }
+
+    @for $i from 1 to $max-columns + 1 {
+        & .col-#{$i} {
+            grid-column-start: col $i !important;
+        }
+    }
+
+    @for $i from 1 to $max-columns + 1 {
+        & .span-#{$i} {
+            grid-column-end: span $i !important;
+        }
+    }
+
+    // grid utility classes
+    & .breakout {
+        grid-column: 1 / -1 !important;
+        position: relative;
+        width: calc(100% + var(--breakout) * 2);
+        right: var(--breakout);
+    }
+
+    & .full {
+        grid-column: 1 / -1 !important;
+        position: relative;
+        width: calc(100% + (var(--breakout) + var(--margins)) * 2);
+        right: calc(var(--breakout) + var(--margins));
+    }
+
+    & .bg-full {
+        grid-column: 1 / -1 !important;
+        position: relative;
+        width: calc(100% + (var(--breakout) + var(--margins)) * 2);
+        right: calc(var(--breakout) + var(--margins));
+        padding-inline: calc(var(--breakout) + var(--margins));
+    }
+}
+
+/// The Breakout Layout.
+///
+/// An auto recursive version of the breakout layout.
+@mixin breakout($inline-padding: 1rem) {
+    /* properties */
+    --margins: #{$inline-padding};
+    --content-max-width: 1400px;
+    --breakout-max-width: 1600px;
+
+    /* TRACK SIZES */
+    --full: minmax(var(--margins), 1fr);
+    --breakout: minmax(0, calc((var(--breakout-max-width) - var(--content-max-width)) / 2));
+    --content: min(100% - var(--margins) * 2, var(--content-max-width));
+
+    display: grid;
+    grid-template-columns:
+        [full-start] var(--full)
+        [breakout-start] var(--breakout)
+        [content-start] var(--content) [content-end]
+        var(--breakout) [breakout-end]
+        var(--full) [full-end];
+
+    & > :not(.page, main, article) {
+        grid-column: content;
+    }
+
+    & .page,
+    & main,
+    & article {
+        grid-column: full;
+        display: grid;
+        grid-template-columns: inherit;
+
+        & > :not(.page, main, article, .breakout, .full) {
+            grid-column: content;
+        }
+    }
+
+    & .breakout {
+        grid-column: breakout;
+    }
+
+    & .full {
+        grid-column: full;
+    }
+}

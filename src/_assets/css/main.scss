@@ -1,0 +1,47 @@
+@use "@zero/zero";
+
+$min_scale: zero.scale_modular(18, zero.scale_ratio("minor_third"), 5, -2);
+$max_scale: zero.scale_modular(20, zero.scale_ratio("major_third"), 5, -2);
+
+:root {
+    @include zero.fluid_scale_render(
+        "fluid-fs-",
+        $min_scale,
+        $max_scale,
+        320,
+        1240,
+        $use_px: true,
+        $relative_to: "viewport"
+    );
+    /* */
+    @include zero.scale_render("fix-fs-", zero.scale_modular(18px, zero.scale_ratio("minor_third"), 5, -2));
+}
+
+body {
+    font-family: sans-serif;
+    background-color: beige;
+    margin-top: 1rem;
+    // @include zero.layout-three-rows-page(1rem, 0);
+    @include zero.layout-colgrid-system(5, 12ch, 1rem, 1rem);
+}
+
+header {
+    background-color: cadetblue;
+    .menu > ul {
+        @include zero.layout-flex-group();
+    }
+}
+
+footer {
+    background-color: coral;
+}
+
+.columns {
+    // @include zero.layout-auto-columns(30ch, 1rem);
+    @include zero.layout-grid-columns(20ch, 1rem);
+    grid-column: 2 / 4 !important;
+}
+
+.test {
+    background-color: rgb(154, 186, 186);
+}
