@@ -1,0 +1,102 @@
+/// Clamps related Functions and Mixins.
+@use "sass:math";
+@use "m";
+
+/// Compute a single clamp calculation.
+///
+/// Compute a single clamp calculation from a min/max width
+/// & a min/max font size. Default to using rem and vi but
+/// this can be overridden to use px and cqi. Pass usePx: true
+/// to separate space from browser text zoom preferences.
+///
+/// calc_clamp(320, 1240, 16, 48, use_px: true, relative_to: "container")
+/// >>> clamp(1rem, 0.3043rem + 3.4783vi, 3rem)
+@function calc_clamp($min_width, $max_width, $min_size, $max_size, $use_px: true, $relative_to: "container") {
+    $min: null;
+    $max: null;
+    $unit: null;
+    $relative_unit: null;
+
+    @if $use_px {
+        $unit: 1px;
+    } @else {
+        $unit: 0.0625rem;
+    }
+
+    @if $relative_to == "container" {
+        $relative_unit: 1cqi;
+    } @else if $relative_to == "viewport" {
+        $relative_unit: 1vi;
+    } @else {
+        $relative_unit: 1vw;
+    }
+
+    @if $min_size > $max_size {
+        $min: $max_size;
+        $max: $min_size;
+    } @else {
+        $min: $min_size;
+        $max: $max_size;
+    }
+
+    $slope: math.div($max_size - $min_size, $max_width - $min_width);
+    $intersection: (-1 * $min_width) * $slope + $min_size;
+
+    @return "clamp(#{m.round_value($min * $unit, 4)}, #{m.round_value($intersection * $unit, 4)} + #{m.round_value($slope * 100, 4) * $relative_unit}, #{m.round_value($max * $unit, 4)})";
+}
+
+/// Compute multiple clamps.
+///
+/// Compute multiple clamps from a single set of min/max widths.
+/// Supply an array of font size number pairs to interpolate between.
+///
+/// calc_clamps(
+///     320, 1240, ((16, 48), (40, 18)), use_px: true, relative_to: "container"
+/// )
+/// >>> (
+///    (
+///      "label": "16-48",
+///      "clamp": clamp(...),
+///    ),
+///    (
+///      "label": "40-16",
+///      "clamp": clamp(...),
+///    )
+/// )
+@function calc_clamps($min_width, $max_width, $pairs, $use_px: true, $relative_to: "container") {
+    $_pairs: ();
+
+    @each $item in $pairs {
+        $min: list.nth($item, 1);
+        $max: list.nth($item, 2);
+        $_pairs: list.append(
+            $_pairs,
+            (
+                "label": "#{$min}-#{$max}",
+                "clamp": calc_clamp(min_width, max_width, $min, $max, $use_px, $relative_to)
+            )
+        );
+    }
+    @return $_pairs;
+}
+
+/// Mixin Rendering single clamp.
+///
+/// Fill-in a css custom variables with the value returned by
+/// calc_clamp() function. Custom property prefix can be overridden
+/// from the default "space-". Supply the same arguments needed by calc_clamp()
+@mixin render_clamp($prefix: "space-", $args...) {
+    --#{$prefix}#{$min_size}-#{$max_size}: #{calc_clamp($args...)};
+}
+
+/// Mixin Rendering multiple clamps.
+///
+/// Render multiple css custom variables with values returned by
+/// the calc_clamps() function. Custom property prefix can be overridden
+/// from the default "space-". Supply the same arguments needed by calc_clamps().
+@mixin render_clamps($prefix: "space-", $args...) {
+    $clamps: calc_clamps($args...);
+    @each $size in $clamps {
+        --#{$prefix}#{map.get($size, "label")}: #{map.get($size, "clamp")};
+    }
+}
