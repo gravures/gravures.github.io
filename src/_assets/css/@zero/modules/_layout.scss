@@ -1,6 +1,7 @@
 /* Layout */
 @use "sass:math";
 @use "sass:list";
+@use "sass:string";
 
 /// classic text flow
 @mixin flow {
@@ -95,7 +96,6 @@
     $content-max-width: 1400px,
     $breakout: 3rem,
     $subgrids: (
-        ".page",
         "main",
         "article"
     )
@@ -114,9 +114,16 @@
     margin-inline: var(--auto-margins);
     padding-inline: clamp(0px, var(--breakout), var(--auto-margins) - var(--breakout));
 
+    // container
+    $name: grid-system-#{string.unique-id()};
+    container-type: inline-size;
+    container-name: mygrid;
+
     // grid setup
     display: grid;
     gap: 0 var(--col-gap);
+    // grid-auto-columns: 0%;
+    grid-auto-flow: row;
 
     @if $max-columns {
         --item--max-width: calc((100% - (#{($max-columns - 1)} * var(--col-gap))) / #{$max-columns});
@@ -137,6 +144,17 @@
         grid-column: content;
     }
 
+    // columns count custom property
+    --columns-count: #{$max-columns};
+    @for $i from 2 to $max-columns + 1 {
+        $itemw: math.div(($content-max-width - ($max-columns - 1) * $col-gap), $max-columns);
+        @container mygrid (#{$itemw * ($i - 1)} < width <= #{$itemw * $i}) {
+            & div[class*="col-"] {
+                --columns-count: #{$i - 1};
+            }
+        }
+    }
+
     // structural classes
     & .row {
         & > ::before {
@@ -148,13 +166,13 @@
 
     @for $i from 1 to $max-columns + 1 {
         & .col-#{$i} {
-            grid-column-start: col $i !important;
+            grid-column-start: col calc(#{$i - 1} - var(--columns-count)) !important;
         }
     }
 
     @for $i from 1 to $max-columns + 1 {
         & .span-#{$i} {
-            grid-column-end: span $i !important;
+            grid-column-end: span min($i, var(--columns-count)) !important;
         }
     }
 

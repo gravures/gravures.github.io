@@ -19,7 +19,7 @@ viverra. Ligula justo vulputate aenean potenti congue. Habitant risus sed sceler
 nisi dui consequat feugiat scelerisque ornare.
 
 
-<div class="columns">
+<div class="columns col-2 span-2">
 <section>
 
 ## Clarity

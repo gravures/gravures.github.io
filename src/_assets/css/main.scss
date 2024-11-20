@@ -22,7 +22,20 @@ body {
     background-color: beige;
     margin-top: 1rem;
     // @include zero.layout-three-rows-page(1rem, 0);
-    @include zero.layout-colgrid-system(5, 12ch, 1rem, 1rem);
+    @include zero.layout-colgrid-system(
+        $max-columns: 5,
+        $min-width: 20ch,
+        $col-gap: 16px,
+        $row-gap: 1rem,
+        $inline-margin: 1rem,
+        $content-max-width: 1400px,
+        $breakout: 3rem,
+        $subgrids: (
+            ".page",
+            "main",
+            "article"
+        )
+    );
 }
 
 header {
@@ -36,10 +49,8 @@ footer {
     background-color: coral;
 }
 
-.columns {
-    // @include zero.layout-auto-columns(30ch, 1rem);
-    @include zero.layout-grid-columns(20ch, 1rem);
-    grid-column: 2 / 4 !important;
+body .columns {
+    @include zero.layout-grid-columns(12ch, 1rem);
 }
 
 .test {
