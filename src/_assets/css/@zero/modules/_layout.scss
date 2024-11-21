@@ -87,6 +87,8 @@
 /// A columns based Grid System.
 ///
 /// Auto grid columns are laid out based on max-column, min-width and gaps.
+/// NOTE: max-columns, min-width, col-gap and row-gap should be passed as
+/// compiled time knows values (not css custom properties).
 @mixin colgrid-system(
     $max-columns: null,
     $min-width: 25ch,
@@ -102,15 +104,14 @@
 ) {
     // grid properties
     --margins: #{$inline-margin};
-    --auto-margins: max(calc((100vw - #{$content-max-width}) / 2), var(--margins));
+    --content-max-width: #{$content-max-width};
+    --auto-margins: max(calc((100vw - var(--content-max-width)) / 2), var(--margins));
     --breakout: #{$breakout};
-    --col-gap: #{$col-gap};
-    --row-gap: #{$row-gap};
 
     // block setup
     // border-inline: 1px dashed;
     box-sizing: content-box;
-    max-inline-size: $content-max-width;
+    max-inline-size: var(--content-max-width);
     margin-inline: var(--auto-margins);
     padding-inline: clamp(0px, var(--breakout), var(--auto-margins) - var(--breakout));
 
@@ -121,11 +122,11 @@
 
     // grid setup
     display: grid;
-    gap: 0 var(--col-gap);
+    gap: 0 #{$col-gap};
     grid-auto-flow: row;
 
     @if $max-columns {
-        --item--max-width: calc((100% - (#{($max-columns - 1)} * var(--col-gap))) / #{$max-columns});
+        --item--max-width: calc((100% - (#{($max-columns - 1)} * #{$col-gap})) / #{$max-columns});
         grid-template-columns:
             [content-start]
             repeat(auto-fill, [col] minmax(max($min-width, var(--item--max-width)), 1fr))
@@ -147,9 +148,12 @@
     --columns-count: 1;
     @for $i from 2 to $max-columns + 1 {
         @container #{$name} (inline-size >= calc((#{$min-width} + #{$col-gap}) * #{$i} - #{$col-gap})) {
-            & div[class*="col-"] {
+            & * {
                 --columns-count: #{$i};
             }
+            // & div[class*="col-"] {
+            //     --columns-count: #{$i};
+            // }
         }
     }
 
@@ -157,14 +161,14 @@
     & .row {
         & > ::before {
             content: "";
-            min-height: var(--row-gap);
+            min-height: #{$row-gap};
             display: block;
         }
     }
 
     @for $i from 1 to $max-columns + 1 {
         & .col-#{$i} {
-            grid-column-start: col calc(#{$i - 1} - var(--columns-count)) !important;
+            grid-column-start: col min($i, var(--columns-count)) !important;
         }
     }
 
