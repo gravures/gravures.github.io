@@ -2,6 +2,16 @@
 @use "sass:math";
 @use "sass:meta";
 
+/// Remove the unit of a length
+/// @param {Number} $number - Number to remove unit from
+/// @return {Number} - Unitless number
+@function strip_unit($number) {
+    @if type-of($number) == "number" and not unitless($number) {
+        @return math.div($number, ($number * 0 + 1));
+    }
+    @return $number;
+}
+
 /// rounds a value to n digits.
 @function round_value($number, $digits: 0) {
     $n: 1;
