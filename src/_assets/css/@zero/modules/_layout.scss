@@ -102,14 +102,14 @@
 ) {
     // grid properties
     --margins: #{$inline-margin};
+    --auto-margins: max(calc((100vw - #{$content-max-width}) / 2), var(--margins));
     --breakout: #{$breakout};
     --col-gap: #{$col-gap};
     --row-gap: #{$row-gap};
 
     // block setup
-    --auto-margins: max(calc((100vw - #{$content-max-width}) / 2), var(--margins));
+    // border-inline: 1px dashed;
     box-sizing: content-box;
-    border-inline: 1px dashed;
     max-inline-size: $content-max-width;
     margin-inline: var(--auto-margins);
     padding-inline: clamp(0px, var(--breakout), var(--auto-margins) - var(--breakout));
@@ -117,12 +117,11 @@
     // container
     $name: grid-system-#{string.unique-id()};
     container-type: inline-size;
-    container-name: mygrid;
+    container-name: $name;
 
     // grid setup
     display: grid;
     gap: 0 var(--col-gap);
-    // grid-auto-columns: 0%;
     grid-auto-flow: row;
 
     @if $max-columns {
@@ -140,17 +139,16 @@
 
     // recursive subgrid inheritance
     @include subgrid(list.append($subgrids, ".row")) {
-        // default items placement
-        grid-column: content;
+        grid-column: content; // default items placement
     }
 
-    // columns count custom property
-    --columns-count: #{$max-columns};
+    // columns-count custom property for item adaptative placement
+    // NOTE: calc work in container query but not custom property.
+    --columns-count: 1;
     @for $i from 2 to $max-columns + 1 {
-        $itemw: math.div(($content-max-width - ($max-columns - 1) * $col-gap), $max-columns);
-        @container mygrid (#{$itemw * ($i - 1)} < width <= #{$itemw * $i}) {
+        @container #{$name} (inline-size >= calc((#{$min-width} + #{$col-gap}) * #{$i} - #{$col-gap})) {
             & div[class*="col-"] {
-                --columns-count: #{$i - 1};
+                --columns-count: #{$i};
             }
         }
     }
