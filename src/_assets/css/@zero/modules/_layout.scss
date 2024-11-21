@@ -151,9 +151,6 @@
             & * {
                 --columns-count: #{$i};
             }
-            // & div[class*="col-"] {
-            //     --columns-count: #{$i};
-            // }
         }
     }
 
