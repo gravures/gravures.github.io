@@ -1,10 +1,24 @@
 @use "@zero/zero";
 @use "@zero/modules/navbar";
 
-$min_scale: zero.scale_modular(18, zero.scale_ratio("minor_third"), 5, -2);
-$max_scale: zero.scale_modular(20, zero.scale_ratio("major_third"), 5, -2);
+// Color system
+$paper: #fbfbf9;
+$white: #fff;
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #6c757d;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+$black: #000;
 
 :root {
+    $min_scale: zero.scale_modular(18, zero.scale_ratio("minor_third"), 5, -2);
+    $max_scale: zero.scale_modular(20, zero.scale_ratio("major_third"), 5, -2);
+
     @include zero.fluid_scale_render(
         "fluid-fs-",
         $min_scale,
@@ -18,11 +32,13 @@ $max_scale: zero.scale_modular(20, zero.scale_ratio("major_third"), 5, -2);
     @include zero.scale_render("fix-fs-", zero.scale_modular(18px, zero.scale_ratio("minor_third"), 5, -2));
 }
 
-body {
+html {
     font-family: sans-serif;
-    background-color: beige;
-    margin-top: 1rem;
-    // @include zero.layout-three-rows-page(1rem, 0);
+    background-color: $paper;
+    color: $gray-900;
+}
+
+body {
     @include zero.layout-colgrid-system(
         $max-columns: 5,
         $min-width: 20ch,
@@ -35,15 +51,19 @@ body {
             ".page",
             "main",
             "article"
-        )
+        ),
+        $debug: true
     );
 }
 
 header {
-    background-color: cadetblue;
-    .menu > ul {
-        @include zero.layout-flex-group();
-    }
+    background-color: rebeccapurple;
+    // .navbar {
+    //     position: sticky;
+    // }
+    // .menu > ul {
+    //     @include zero.layout-flex-group();
+    // }
 }
 
 footer {

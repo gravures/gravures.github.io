@@ -100,20 +100,27 @@
     $subgrids: (
         "main",
         "article"
-    )
+    ),
+    $debug: false
 ) {
     // grid properties
     --margins: #{$inline-margin};
+    --breakout: #{$breakout};
     --content-max-width: #{$content-max-width};
     --auto-margins: max(calc((100vw - var(--content-max-width)) / 2), var(--margins));
-    --breakout: #{$breakout};
+    --auto-paddings: clamp(0px, var(--breakout), var(--auto-margins) - var(--breakout));
 
     // block setup
     // border-inline: 1px dashed;
     box-sizing: content-box;
     max-inline-size: var(--content-max-width);
     margin-inline: var(--auto-margins);
-    padding-inline: clamp(0px, var(--breakout), var(--auto-margins) - var(--breakout));
+    padding-inline: var(--auto-paddings);
+
+    // debug
+    @if $debug {
+        border-inline: 1px dashed;
+    }
 
     // container
     $name: grid-system-#{string.unique-id()};
@@ -186,16 +193,16 @@
     & .full {
         grid-column: 1 / -1 !important;
         position: relative;
-        width: calc(100% + (var(--breakout) + var(--margins)) * 2);
-        right: calc(var(--breakout) + var(--margins));
+        inline-size: calc(100% + (var(--auto-paddings) + var(--auto-margins)) * 2);
+        right: calc(var(--auto-paddings) + var(--auto-margins));
     }
 
     & .bg-full {
         grid-column: 1 / -1 !important;
         position: relative;
-        width: calc(100% + (var(--breakout) + var(--margins)) * 2);
-        right: calc(var(--breakout) + var(--margins));
-        padding-inline: calc(var(--breakout) + var(--margins));
+        inline-size: calc(100% + (var(--auto-paddings) + var(--auto-margins)) * 2);
+        right: calc(var(--auto-paddings) + var(--auto-margins));
+        padding-inline: calc(var(--auto-paddings) + var(--auto-margins));
     }
 }
 
