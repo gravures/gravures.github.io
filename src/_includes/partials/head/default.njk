@@ -1,11 +1,11 @@
 {#- This is the default head's page content. -#}
 {% javascript %}
-{% include "../../../_assets/js/cssGridViewer/css-grid-viewer.js" %}
+{# {% include "../../../_assets/js/cssGridViewer/css-grid-viewer.js" %}
 document.addEventListener("DOMContentLoaded", function() {
 new CssGridViewer({
 opacity: 0.8
 });
-});
+}); #}
 {% endjavascript %}
 
 <head>
@@ -24,12 +24,14 @@ opacity: 0.8
     {% endblock %}
 
     {% block js %}
-    {#
-    <script src="{% getBundleFileUrl 'javascript' %}"></script> #}
+    <script src="{% getBundleFileUrl 'javascript' %}"></script>
     {% endblock %}
 
     {% block css %}
+    <style>{% getBundle 'css', 'inline' %}</style>
     <link rel=" stylesheet" href="/css/main.css" type="text/css" />
+    <link rel="stylesheet" href="{% getBundleFileUrl 'css' %}">
+    <link rel="stylesheet" href="{% getBundleFileUrl 'css', 'defer' %}" fetchpriority="low">
     {% endblock %}
 
     {# {%- favicons "src/favicon.svg" -%} #}

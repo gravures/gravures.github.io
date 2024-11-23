@@ -31,10 +31,14 @@ export default function (eleventyConfig) {
     eleventyConfig.addTransform("htmlprettify", html_prettify);
 
     // bundles
-    // site js
     eleventyConfig.addBundle("javascript", {
         toFileDirectory: "js",
         outputFileExtension: "js",
+    });
+
+    eleventyConfig.addBundle("css", {
+        toFileDirectory: "css",
+        outputFileExtension: "css",
     });
 
     // node.js libraries
