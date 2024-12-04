@@ -1,34 +1,32 @@
 <!DOCTYPE html>
 <html lang="{{ page.lang }}">
 
-{# specific head for this page -#}
-{% include_partial "head", type %}
+{% partial "head", type %}
 
 <body>
-
-    <header>
-        {% include_partial "header", type %}
+    <header class="bg-full">
+        {% partial "header", type %}
     </header>
 
     <div class="page">
         <aside>
-            {% include_partial "extra", type %}
+            {% partial "extra", type %}
         </aside>
 
         <nav aria-label="Breadcrumb">
-            {% include_partial "breadcrumb", type %}
+            {% partial "breadcrumb", type %}
         </nav>
 
         <main>
-            {% include_partial "content", type %}
+            {% partial "content", type %}
         </main>
 
         <aside>
-            {% include_partial "aside", type %}
+            {% partial "aside", type %}
         </aside>
     </div>
 
     <footer class="break">
-        {% include_partial "footer", type %}
+        {% partial "footer", type %}
     </footer>
 </body>
