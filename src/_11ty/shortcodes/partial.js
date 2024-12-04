@@ -66,17 +66,18 @@ export default function (eleventyConfig, options = {}) {
         };
 
         // Let find which template to render
+        let partials = path.join(this.eleventy.directories.includes, opts.partials, template);
         let found = null;
-        for (let item of fs.readdirSync(
-            path.join(this.eleventy.directories.includes, opts.partials, template))
-        ) {
-            item = path.parse(item);
-            if (item.name === opts.default) {
-                found = item.base;
-                continue;
-            } else if (item.name === type) {
-                found = item.base;
-                break;
+        if (fs.existsSync(partials)) {
+            for (let item of fs.readdirSync(partials)) {
+                item = path.parse(item);
+                if (item.name === opts.default) {
+                    found = item.base;
+                    continue;
+                } else if (item.name === type) {
+                    found = item.base;
+                    break;
+                }
             }
         }
         // console.log(inspect(this.ctx));
@@ -88,7 +89,7 @@ export default function (eleventyConfig, options = {}) {
 
         // do the thing...
         let templateLang = null;
-        let inputPath = path.join(this.eleventy.directories.includes, opts.partials, template, found);
+        let inputPath = path.join(partials, found);
         let fn = await Render.File.call(this, inputPath, options, templateLang);
         return renderShortcodeFn.call(this, fn, data);
     }
