@@ -4,7 +4,6 @@ import path from "path";
 import { RenderPlugin as Render } from "@11ty/eleventy";
 import { isPlainObject } from "@11ty/eleventy-utils";
 
-
 /** @this {object} */
 async function renderShortcodeFn(fn, data) {
     if (fn === undefined) {
@@ -80,7 +79,7 @@ export default function (eleventyConfig, options = {}) {
                 }
             }
         }
-        // console.log(inspect(this.ctx));
+
         if (!found) {
             if (opts.warn)
                 console.warn(`No partial defined for <${template}>`);
@@ -91,6 +90,12 @@ export default function (eleventyConfig, options = {}) {
         let templateLang = null;
         let inputPath = path.join(partials, found);
         let fn = await Render.File.call(this, inputPath, options, templateLang);
+
+        // forward content (raw content is available @ this.page.rawInput)
+        if (this.ctx.environments !== undefined)
+            Object.assign(data, { content: this.ctx.environments.content });
+        else if (this.ctx.content !== undefined) // nunjuck
+            Object.assign(data, { content: this.ctx.content });
         return renderShortcodeFn.call(this, fn, data);
     }
 
