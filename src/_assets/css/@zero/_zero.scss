@@ -1,4 +1,5 @@
 @forward "modules/reset";
-@forward "modules/scale" as scale_*;
-@forward "modules/fluid_scale" as fluid_scale_*;
+@forward "modules/scale" as scale-*;
+@forward "modules/fluid_scale" as fluid_scale-*;
 @forward "modules/layout" as layout-*;
+@forward "modules/nav" as nav-*;
