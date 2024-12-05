@@ -1,5 +1,4 @@
 @use "@zero/zero";
-@use "@zero/modules/navbar";
 
 // Color system
 $paper: #fbfbf9;
@@ -14,6 +13,8 @@ $gray-700: #495057;
 $gray-800: #343a40;
 $gray-900: #212529;
 $black: #000;
+
+@include zero.reset();
 
 :root {
     $min_scale: zero.scale_modular(18, zero.scale_ratio("minor_third"), 5, -2);
@@ -54,16 +55,20 @@ body {
         ),
         $debug: true
     );
+
+    // @include zero.layout-pancake();
 }
 
-header {
+body > header {
     background-color: rebeccapurple;
-    // .navbar {
-    //     position: sticky;
-    // }
-    // .menu > ul {
-    //     @include zero.layout-flex-group();
-    // }
+    position: sticky;
+    top: 0px;
+    // width: 100%;
+    align-self: start;
+
+    .navbar {
+        @include zero.nav-responsive-navbar();
+    }
 }
 
 footer {
@@ -76,8 +81,4 @@ body .columns {
 
 .test {
     background-color: rgb(154, 186, 186);
-}
-
-.navbar {
-    @include navbar.nav();
 }
