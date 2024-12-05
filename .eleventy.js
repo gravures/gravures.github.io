@@ -2,13 +2,13 @@ import { readFileSync } from "fs";
 import path from "path";
 
 import { EleventyI18nPlugin, EleventyRenderPlugin } from "@11ty/eleventy";
-import pluginWebc from "@11ty/eleventy-plugin-webc";
-import faviconsPlugin from "eleventy-plugin-gen-favicons";
+import EleventyWebcPlugin from "@11ty/eleventy-plugin-webc";
+import FaviconsPlugin from "eleventy-plugin-gen-favicons";
 
-import SassHandler from "./src/_11ty/handlers/SassHandler.js";
-import partial from "./src/_11ty/shortcodes/partial.js";
-import html_prettify from "./src/_11ty/transforms/html_prettify.js";
-
+import CssTransformPlugin, { cssTransform } from "./src/_11ty/plugins/CssTransform.js";
+import HtmlPrettifierPlugin from "./src/_11ty/plugins/HtmlPrettifier.js";
+import PartialRenderPlugin from "./src/_11ty/plugins/PartialRender.js";
+import ScssHandlerPlugin from "./src/_11ty/plugins/ScssHandler.js";
 
 
 /** @param {import("@11ty/eleventy").UserConfig} eleventyConfig */
@@ -26,20 +26,21 @@ export default function (eleventyConfig) {
         errorMode: "allow-fallback"
     });
     eleventyConfig.addPlugin(EleventyRenderPlugin);
-    eleventyConfig.addPlugin(pluginWebc, {
+    eleventyConfig.addPlugin(EleventyWebcPlugin, {
         components: "./src/_includes/components/**/*.webc",
+        bundlePluginOptions: { "transforms": [cssTransform] },
     });
-    eleventyConfig.addPlugin(faviconsPlugin, {});
-
-    // shortCodes
-    eleventyConfig.addPlugin(partial, {});
-
-    // scss handlers
-    eleventyConfig.addTemplateFormats("scss");
-    eleventyConfig.addExtension("scss", SassHandler);
-
-    // transforms
-    eleventyConfig.addTransform("htmlprettify", html_prettify);
+    eleventyConfig.addPlugin(FaviconsPlugin, {});
+    eleventyConfig.addPlugin(PartialRenderPlugin, {});
+    eleventyConfig.addPlugin(ScssHandlerPlugin, {
+        srcDirs: ["./src/_assets/css"],
+        quiet: true,
+    });
+    eleventyConfig.addPlugin(CssTransformPlugin, {
+        minify: true,
+        targets: "> 0.2% and not dead",
+    });
+    eleventyConfig.addPlugin(HtmlPrettifierPlugin);
 
     // node.js libraries
     let pkg = JSON.parse(readFileSync(path.resolve("./package.json")));
