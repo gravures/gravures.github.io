@@ -185,23 +185,20 @@
     // grid utility classes
     & .breakout {
         grid-column: 1 / -1 !important;
-        position: relative;
-        width: calc(100% + var(--breakout) * 2);
-        right: var(--breakout);
+        inline-size: calc(100% + var(--breakout) * 2);
+        translate: calc((--breakout) * -1);
     }
 
     & .full {
         grid-column: 1 / -1 !important;
-        position: relative;
         inline-size: calc(100% + (var(--auto-paddings) + var(--auto-margins)) * 2);
-        right: calc(var(--auto-paddings) + var(--auto-margins));
+        translate: calc((var(--auto-paddings) + var(--auto-margins)) * -1);
     }
 
     & .bg-full {
         grid-column: 1 / -1 !important;
-        position: relative;
         inline-size: calc(100% + (var(--auto-paddings) + var(--auto-margins)) * 2);
-        right: calc(var(--auto-paddings) + var(--auto-margins));
+        translate: calc((var(--auto-paddings) + var(--auto-margins)) * -1);
         padding-inline: calc(var(--auto-paddings) + var(--auto-margins));
     }
 }
