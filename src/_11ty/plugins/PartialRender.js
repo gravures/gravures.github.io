@@ -37,7 +37,7 @@ export default function (eleventyConfig, options = {}) {
      * @typedef {object} options
      * @property {string} [partials] - The directory containing partials relative to _includes.
      * @property {string} [default] - Name of the default partial's template.
-     * @property {boolean} [true] - Whenever emit console warning about missing partial's template.
+     * @property {boolean} [warn] - Whether emit console warning about missing partial's template.
      */
     let defaultOptions = {
         partials: "partials",
