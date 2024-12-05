@@ -4,6 +4,7 @@ import path from "path";
 import { RenderPlugin as Render } from "@11ty/eleventy";
 import { isPlainObject } from "@11ty/eleventy-utils";
 
+
 /** @this {object} */
 async function renderShortcodeFn(fn, data) {
     if (fn === undefined) {
@@ -37,15 +38,23 @@ export default function (eleventyConfig, options = {}) {
      * @typedef {object} options
      * @property {string} [partials] - The directory containing partials relative to _includes.
      * @property {string} [default] - Name of the default partial's template.
-     * @property {boolean} [warn] - Whether emit console warning about missing partial's template.
+     * @property {boolean} [warns] - Whether emit console warning about missing partial's template.
      */
     let defaultOptions = {
         partials: "partials",
         default: "default",
-        warn: true,
+        warns: true,
         templateConfig: null,
     };
     let opts = Object.assign(defaultOptions, options);
+
+    try {
+        eleventyConfig.versionCheck(">=3.0");
+    } catch (e) {
+        console.log(
+            `[PartialRenderPlugin] WARN: Eleventy plugin compatibility: ${e.message}`
+        );
+    }
 
     let templateConfig;
     eleventyConfig.on("eleventy.config", (cfg) => {
@@ -81,8 +90,8 @@ export default function (eleventyConfig, options = {}) {
         }
 
         if (!found) {
-            if (opts.warn)
-                console.warn(`No partial defined for <${template}>`);
+            if (opts.warns)
+                console.log(`[PartialRenderPlugin] WARN: No partial defined for <${template}>`);
             return "";
         }
 
