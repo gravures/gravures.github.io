@@ -33,6 +33,7 @@ opacity: 0.8
     <style>{% getBundle 'css', 'inline' %}</style>
     <link rel=" stylesheet" href="/css/main.css" type="text/css" />
     <link rel="stylesheet" href="{% getBundleFileUrl 'css' %}">
+    <link rel="stylesheet" href="{% getBundleFileUrl 'css', 'webc' %}">
     <link rel="stylesheet" href="{% getBundleFileUrl 'css', 'defer' %}" fetchpriority="low">
     {% endblock %}
 
