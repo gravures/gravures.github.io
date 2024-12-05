@@ -6,10 +6,12 @@ export default function (eleventyConfig, options = {}) {
      * @typedef {object} options
      * @property {Array} [srcDirs] - Array of directories for sass to look for module.
      * @property {boolean} [sourceMap] - Whether to output sass source Map.
+     * @property {boolean} [quiet] - Whether to let sass emit warnings.
      */
     let defaultOptions = {
         srcDirs: [],
         sourceMap: false,
+        quiet: false,
     };
     let opts = Object.assign(defaultOptions, options);
 
@@ -36,6 +38,7 @@ export default function (eleventyConfig, options = {}) {
                 // when using Sass’ @use, @forward, and @import features
                 loadPaths: loadPaths,
                 sourceMap: opts.sourceMap,
+                quietDeps: opts.quiet,
             });
 
             // if a template syntax allows use of other templates
