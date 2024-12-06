@@ -60,4 +60,13 @@ export default function (eleventyConfig, options = {}) {
         },
     }
     );
+
+    // Prevent css output files to end up in collections.all
+    eleventyConfig.addGlobalData(
+        "eleventyComputed", {
+        eleventyExcludeFromCollections:
+            async (data) => {
+                return data.page.templateSyntax === "scss";
+            }
+    });
 };
