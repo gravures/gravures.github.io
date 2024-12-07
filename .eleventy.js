@@ -3,7 +3,7 @@ import path from "path";
 
 import { EleventyI18nPlugin, EleventyRenderPlugin } from "@11ty/eleventy";
 import EleventyWebcPlugin from "@11ty/eleventy-plugin-webc";
-import FaviconsPlugin from "eleventy-plugin-gen-favicons";
+import FaviconsPlugin from "./src/_11ty/plugins/FaviconsPlugin.js";
 
 import CssTransformPlugin, { cssTransform } from "./src/_11ty/plugins/CssTransform.js";
 import HtmlPrettifierPlugin from "./src/_11ty/plugins/HtmlPrettifier.js";
@@ -30,7 +30,6 @@ export default function (eleventyConfig) {
         components: "./src/_includes/components/**/*.webc",
         bundlePluginOptions: { "transforms": [cssTransform] },
     });
-    eleventyConfig.addPlugin(FaviconsPlugin, {});
     eleventyConfig.addPlugin(PartialRenderPlugin, {});
     eleventyConfig.addPlugin(ScssHandlerPlugin, {
         srcDirs: ["./src/_assets/css"],
@@ -41,13 +40,17 @@ export default function (eleventyConfig) {
         targets: "> 0.2% and not dead",
     });
     eleventyConfig.addPlugin(HtmlPrettifierPlugin);
+    eleventyConfig.addPlugin(FaviconsPlugin, {
+        sourceFile: "static/favicon.svg",
+    });
+    // eleventyConfig.addPlugin(DebugPlugin);
 
     // node.js libraries
     let pkg = JSON.parse(readFileSync(path.resolve("./package.json")));
     for (let bundle in pkg.bundleDependencies) {
         let dir = path.join("node_modules", pkg.bundleDependencies[bundle]);
         eleventyConfig.addPassthroughCopy(dir);
-        console.log(dir);
+        console.log(`[JsBundledDependency] -> ${dir}`);
     }
 };
 
