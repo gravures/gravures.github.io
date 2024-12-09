@@ -1,3 +1,17 @@
+/*
+* This code is based on https://github.com/NJAldwin/eleventy-plugin-gen-favicons
+*
+* derived from:
+* https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs
+*
+* (2022 update)
+* ico: 64/32/16
+* apple png: 180x180 (140x140 + 20px bg padding preferred)
+* manifest with:
+* google home screen png: 192x192
+* google loading png: 512x512
+*/
+
 import deepEq from "fast-deep-equal";
 import fs from "graceful-fs";
 import path from "path";
