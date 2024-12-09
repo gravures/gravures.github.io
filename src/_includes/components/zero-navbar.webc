@@ -73,15 +73,13 @@
 
 <style webc:bucket="webc" webc:scoped webc:type="11ty" 11ty:type="scss">
     @use "@zero/zero";
-    $ff-size: 1.2rem;
 
     :host {
-        background-color: yellowgreen;
-        font-size: $ff-size;
+        .navbar{
+             @include zero.nav-responsive-navbar();
+        }
     }
 
     :host:defined {
-        background-color: orange;
-        font-size: $ff-size * 2;
     }
 </style>
