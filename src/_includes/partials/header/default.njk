@@ -1,29 +1,44 @@
-<nav class="navbar">
-    <input type="checkbox" id="sidebar-active">
-    <label for="sidebar-active" class="open-sidebar-button">
-        <svg xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 -960 960 960" width="32">
-            <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
+<nav role="navigation" aria-label="Main Menu" class="navbar">
+    <input type="checkbox" id="hamburger-menu-trigger">
+    <label for="hamburger-menu-trigger" class="hamburger-menu">
+        <svg id="hamburger-menu-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path />
         </svg>
     </label>
-    <label id="overlay" for="sidebar-active"></label>
+    <label for="hamburger-menu-trigger" id="overlay"></label>
 
     <ul class="links-container">
-        <label for="sidebar-active" class="close-sidebar-button">
-            <svg xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 -960 960 960" width="32">
-                <path
-                    d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
-            </svg>
-        </label>
-
-        <li class="link home-link"><a href="#">home</a></li>
-        <li class="link"><a href="#">blog</a></li>
+        <li class="link home-link"><a aria-current="page" href="#">home</a></li>
         <li class="link">
-            <a href="#">portefolio</a>
+            <a aria-expanded="false" href="#">blog</a>
+            <ul>
+                <li class="link"><a href="#">on</a></li>
+                <li class="link"><a href="#">tow</a></li>
+                <li class="link">
+                    <a aria-expanded="false" href="#">photos</a>
+                    <ul>
+                        <li class="link"><a href="#">alpha</a></li>
+                        <li class="link">
+                            <a aria-expanded="false" href="#">beta</a>
+                            <ul>
+                                <li class="link"><a href="#">portrait</a></li>
+                                <li class="link"><a href="#">landscape</a></li>
+                                <li class="link"><a href="#">abstract</a></li>
+                                <li class="link"><a href="#">colors</a></li>
+                            </ul>
+                        </li>
+                        <li class="link"><a href="#">charlie</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li class="link">
+            <a aria-expanded="false" href="#">portefolio</a>
             <ul>
                 <li class="link"><a href="#">posters</a></li>
                 <li class="link"><a href="#">illustrations</a></li>
                 <li class="link">
-                    <a href="#">photos</a>
+                    <a aria-expanded="false" href="#">photos</a>
                     <ul>
                         <li class="link"><a href="#">portrait</a></li>
                         <li class="link"><a href="#">landscape</a></li>
