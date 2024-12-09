@@ -63,12 +63,7 @@ body > header {
     background-color: rebeccapurple;
     position: sticky;
     top: 0px;
-    // width: 100%;
     align-self: start;
-
-    .navbar {
-        @include zero.nav-responsive-navbar();
-    }
 }
 
 footer {
