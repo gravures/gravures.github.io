@@ -1,0 +1,135 @@
+---
+import Extra from "../components/extra.astro";
+import BaseFooter from "../components/footer.astro";
+import BaseHead, { type Props } from "../components/head.astro";
+import BaseHeader from "../components/header.astro";
+
+const { lang = Astro.currentLocale, ...head } = Astro.props;
+---
+
+{/* Actual Page Layout */}
+<html lang={lang}>
+    <head>
+        <BaseHead {lang} {...head} />
+    </head>
+
+    <body>
+        <div class="page">
+            <header class="bg-full">
+                <BaseHeader />
+            </header>
+
+            <aside>
+                <Extra />
+            </aside>
+
+            <main>
+                <article>
+                    <slot />
+                </article>
+            </main>
+
+            <aside></aside>
+
+            <footer class="break">
+                <BaseFooter {lang} />
+            </footer>
+        </div>
+    </body>
+</html>
+
+{/* Global Site Styling */}
+<style is:global lang="scss">
+    @use "../styles/@zero/zero";
+
+    // Color system
+    $paper: #fbfbf9;
+    $white: #fff;
+    $gray-100: #f8f9fa;
+    $gray-200: #e9ecef;
+    $gray-300: #dee2e6;
+    $gray-400: #ced4da;
+    $gray-500: #adb5bd;
+    $gray-600: #6c757d;
+    $gray-700: #495057;
+    $gray-800: #343a40;
+    $gray-900: #212529;
+    $black: #000;
+
+    @include zero.reset();
+
+    :root {
+        $min_scale: zero.scale_modular(
+            18,
+            zero.scale_ratio("minor_third"),
+            5,
+            -2
+        );
+        $max_scale: zero.scale_modular(
+            20,
+            zero.scale_ratio("major_third"),
+            5,
+            -2
+        );
+
+        @include zero.fluid_scale_render(
+            "fluid-fs-",
+            $min_scale,
+            $max_scale,
+            320,
+            1240,
+            $use_px: true,
+            $relative_to: "viewport"
+        );
+
+        @include zero.scale_render(
+            "fix-fs-",
+            zero.scale_modular(18px, zero.scale_ratio("minor_third"), 5, -2)
+        );
+    }
+
+    html {
+        font-family: sans-serif;
+        background-color: $paper;
+        color: $gray-900;
+    }
+
+    body {
+        @include zero.layout-colgrid-system(
+            $max-columns: 5,
+            $min-width: 20ch,
+            $col-gap: 1rem,
+            $row-gap: 1rem,
+            $inline-margin: 1rem,
+            $content-max-width: 1400px,
+            $breakout: 3rem,
+            $subgrids: (
+                ".page",
+                "main",
+                "article",
+            ),
+            $debug: true
+        );
+
+        // @include zero.layout-pancake();
+    }
+
+    body > header {
+        background-color: rebeccapurple;
+        position: sticky;
+        top: 0px;
+        align-self: start;
+    }
+
+    footer {
+        background-color: coral;
+    }
+
+    body .columns {
+        @include zero.layout-grid-columns(12ch, 1rem);
+    }
+
+    .test {
+        background-color: rgb(154, 186, 186);
+    }
+</style>

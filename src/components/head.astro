@@ -1,0 +1,73 @@
+---
+import siteInfo from "../data/siteInfo";
+import Seo from "./seo.astro";
+
+export type Props = {
+    name?: string;
+    title?: string;
+    rawTitle?: string;
+    description?: string;
+    image?: { src: string; alt: string };
+    canonicalURL?: URL | null;
+    pageType?: "website" | "article";
+    lang?: string | undefined;
+};
+
+const {
+    name = siteInfo.name,
+    rawTitle,
+    description = siteInfo.description,
+    image = siteInfo.image,
+    canonicalURL = new URL(Astro.request.url, Astro.site),
+    pageType = "website",
+    lang,
+} = Astro.props;
+
+const title =
+    rawTitle ?? [Astro.props.title, siteInfo.name].filter(Boolean).join(" | ");
+
+function getImage() {
+    if (image)
+        return {
+            src: new URL(image.src, Astro.site).toString(),
+            alt: image.alt,
+        };
+    return undefined;
+}
+
+const resolvedImage: any = getImage();
+---
+
+{/*  High Priority Global Metadata */}
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="generator" content={Astro.generator} />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+{/* Font preloads, omit MDIO to improve initial load */}
+
+{/* Favicons markups are handled by AstroFavicons plugin */}
+
+{/* Low Priority Global Metadata */}
+<title>{title}</title>
+<Seo
+    name={siteInfo.name}
+    title={title}
+    description={description}
+    image={resolvedImage}
+    twitter={{ handle: name }}
+    og={{ type: pageType }}
+    canonicalURL={canonicalURL}
+    locale={lang}
+/>
+
+<script>
+    // FIXME: cgv needs refactoring
+    // FIXME: cgv seems broken...
+    // FIXME: activate only for dev
+    // import { CssGridViewer } from "../scripts/cssGridViewer/css-grid-viewer.js";
+
+    // document.addEventListener("DOMContentLoaded", function () {
+    //     new CssGridViewer({ opacity: 0.8 });
+    // });
+</script>

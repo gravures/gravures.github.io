@@ -1,14 +1,24 @@
+---
+
+---
+
 <nav role="navigation" aria-label="Main Menu" class="navbar">
-    <input type="checkbox" id="hamburger-menu-trigger">
+    <input type="checkbox" id="hamburger-menu-trigger" />
     <label for="hamburger-menu-trigger" class="hamburger-menu">
-        <svg id="hamburger-menu-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <path />
+        <svg
+            id="hamburger-menu-icon"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path></path>
         </svg>
     </label>
     <label for="hamburger-menu-trigger" id="overlay"></label>
 
     <ul class="links-container">
-        <li class="link home-link"><a aria-current="page" href="#">home</a></li>
+        <li class="link home-link">
+            <a aria-current="page" href="#">home</a>
+        </li>
         <li class="link">
             <a aria-expanded="false" href="#">blog</a>
             <ul>
@@ -21,10 +31,18 @@
                         <li class="link">
                             <a aria-expanded="false" href="#">beta</a>
                             <ul>
-                                <li class="link"><a href="#">portrait</a></li>
-                                <li class="link"><a href="#">landscape</a></li>
-                                <li class="link"><a href="#">abstract</a></li>
-                                <li class="link"><a href="#">colors</a></li>
+                                <li class="link">
+                                    <a href="#">portrait</a>
+                                </li>
+                                <li class="link">
+                                    <a href="#">landscape</a>
+                                </li>
+                                <li class="link">
+                                    <a href="#">abstract</a>
+                                </li>
+                                <li class="link">
+                                    <a href="#">colors</a>
+                                </li>
                             </ul>
                         </li>
                         <li class="link"><a href="#">charlie</a></li>
@@ -53,3 +71,14 @@
         <li class="link"><a href="#">contact</a></li>
     </ul>
 </nav>
+
+<script></script>
+
+<style is:global lang="scss">
+    // FIXME:navbar dropdown behaviour is broken with a scoped style
+    @use "../styles/@zero/zero";
+
+    .navbar {
+        @include zero.nav-responsive-navbar();
+    }
+</style>

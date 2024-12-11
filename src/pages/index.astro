@@ -1,0 +1,9 @@
+---
+import { Content, frontmatter } from "../content/home.mdx";
+import Layout from "../layouts/baseLayout.astro";
+---
+
+<Layout>
+	<h2>{frontmatter.title}</h2>
+	<Content />
+</Layout>

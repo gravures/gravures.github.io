@@ -1,30 +1,19 @@
 {
-  "name": "ideographe",
-  "version": "1.0.0",
-  "description": "ideographe.fr website",
-  "main": "index.js",
+  "name": "ok",
   "type": "module",
+  "version": "0.0.1",
   "scripts": {
-    "start": "eleventy --serve",
-    "build": "eleventy",
-    "check": "pre-commit run --all-files",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "gilles coissac",
-  "license": "GPL-3.0",
-  "devDependencies": {
-    "@11ty/eleventy": "^3.0.0",
-    "@11ty/eleventy-plugin-webc": "^0.11.2",
-    "browserslist": "^4.24.2",
-    "eleventy-plugin-gen-favicons": "^1.1.3",
-    "html-prettify": "^1.0.7",
-    "lightningcss": "^1.28.2",
-    "sass": "^1.80.5"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
   },
   "dependencies": {
-    "@splidejs/splide": "^4.1.4"
+    "@astrojs/mdx": "^4.0.2",
+    "astro": "^5.0.4",
+    "astro-favicons": "^3.0.6"
   },
-  "bundleDependencies": [
-    "@splidejs/splide"
-  ]
+  "devDependencies": {
+    "sass-embedded": "^1.82.0"
+  }
 }
