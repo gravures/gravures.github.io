@@ -1,0 +1,17 @@
+---
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+    const documents = await getCollection("posters");
+    // TODO: filter statut === published
+    return documents.map((document) => ({
+        params: { id: document.id },
+        props: { document },
+    }));
+}
+
+const { document } = Astro.props;
+---
+
+<h2>{document.data.title}</h2>
+<p>id: <strong>{document.id}</strong></p>
