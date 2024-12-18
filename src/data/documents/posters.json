@@ -1,674 +1,730 @@
-{
-	"doxa": {
+[
+	{
+		"id": "doxa",
 		"title": "doxa rouge",
-		"date": "2018-10-03 06:21:47",
+		"date": "2018-10-03",
 		"description": "de Julien Mages",
 		"src": "assets/img/doxa_a3_rgb1.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"certaines": {
+	{
+		"id": "certaines",
 		"title": "certaines n'avaient jamais vu la mer",
-		"date": "2018-10-03 06:22:22",
+		"date": "2018-10-03",
 		"description": "d’après le roman de Julie Otsuka",
 		"src": "assets/img/f4-certaines_web1.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"cherie": {
+	{
+		"id": "cherie",
 		"title": "chérichérie",
-		"date": "2018-10-03 06:22:40",
+		"date": "2018-10-03",
 		"description": "de Manon Krüttli, Krükrew",
 		"src": "assets/img/f4-chericherie_webc1.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"heidi": {
+	{
+		"id": "heidi",
 		"title": "Heidi!",
-		"date": "2018-10-03 06:23:03",
+		"date": "2018-10-03",
 		"description": "De et par Inbal Yomtovian, Golden Delicious Ensemble",
 		"src": "assets/img/heidi-web1.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"marina": {
+	{
+		"id": "marina",
 		"title": "La marina",
-		"date": "2018-10-03 06:23:22",
+		"date": "2018-10-03",
 		"description": "de Anne Frédérique Rochat\r\nmise en scène : Olivier Périat\r\npar la cie interlope\r\n",
 		"src": "assets/img/marina-web1.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"cafe_voyageurs": {
+	{
+		"id": "cafe_voyageurs",
 		"title": "Le café des voyageurs",
-		"date": "2018-10-07 20:17:59",
+		"date": "2018-10-07",
 		"description": "de Coline Ladetto",
 		"src": "assets/img/cafe_voyageurs_web1.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"avant": {
+	{
+		"id": "avant",
 		"title": "Avant de se retrouver",
-		"date": "2018-10-07 20:19:00",
+		"date": "2018-10-07",
 		"description": "de Jérôme Richer et Olivia Pedroli",
 		"src": "assets/img/f4-avant_retrouver_web1.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"barbara": {
+	{
+		"id": "barbara",
 		"title": "Ma Barbara",
-		"date": "2018-10-07 20:19:56",
+		"date": "2018-10-07",
 		"description": "par Yvette Thérolaz",
 		"src": "assets/img/f4-barbara_web1.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"love": {
+	{
+		"id": "love",
 		"title": "Love on the (méga) byte",
-		"date": "2018-10-07 20:20:31",
+		"date": "2018-10-07",
 		"description": "de Lee Maddeford et Benjamin Knobil",
 		"src": "assets/img/f4-love_byte1.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"contretemps": {
+	{
+		"id": "contretemps",
 		"title": "Raisonnances & contretemps",
-		"date": "2018-10-07 20:21:11",
+		"date": "2018-10-07",
 		"description": "de Jocelyne Rudasigwa",
 		"src": "assets/img/f4-contretemps1.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"lamer": {
+	{
+		"id": "lamer",
 		"title": "La mer à boire",
-		"date": "2018-10-07 20:23:01",
+		"date": "2018-10-07",
 		"description": "de François Chaffin",
 		"src": "assets/img/f4-mer_a_boire_web1.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"romance": {
+	{
+		"id": "romance",
 		"title": "Romance",
-		"date": "2018-10-07 20:23:49",
+		"date": "2018-10-07",
 		"description": "de Valérie Liengme",
 		"src": "assets/img/f4-romance_web_high1.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"sanspeau": {
+	{
+		"id": "sanspeau",
 		"title": "Sans peau",
-		"date": "2018-10-07 20:24:35",
+		"date": "2018-10-07",
 		"description": "texte et mise en scène \r\nPierre Lepori",
 		"src": "assets/img/f4-sanspeau_web1.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"strange": {
+	{
+		"id": "strange",
 		"title": "Strange desire",
-		"date": "2018-10-07 20:25:23",
+		"date": "2018-10-07",
 		"description": "par Ariane Moret",
 		"src": "assets/img/f4-strange_desire_def1.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"mentir": {
+	{
+		"id": "mentir",
 		"title": "Ta façon de mentir",
-		"date": "2018-10-07 20:26:10",
+		"date": "2018-10-07",
 		"description": "de Catherine Delmar et Alain Guerry",
 		"src": "assets/img/facon_de_mentir_web1.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"blockbuster": {
+	{
+		"id": "blockbuster",
 		"title": "Blockbuster",
-		"date": "2018-10-08 11:22:42",
+		"date": "2018-10-08",
 		"description": "de Tomas Gonzalez",
 		"src": "assets/img/f4-blockbuster_31.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"fenster": {
+	{
+		"id": "fenster",
 		"title": "Durch ein fenster",
-		"date": "2018-10-08 11:27:10",
+		"date": "2018-10-08",
 		"description": "",
 		"src": "assets/img/f4-bovary1.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"echappe": {
+	{
+		"id": "echappe",
 		"title": "L'échappée",
-		"date": "2018-10-08 11:27:10",
+		"date": "2018-10-08",
 		"description": "",
 		"src": "assets/img/f4-echappee_def1.jpg",
 		"media": "image",
 		"mode": "image",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"frost": {
+	{
+		"id": "frost",
 		"title": "Frost",
-		"date": "2018-10-08 11:27:10",
+		"date": "2018-10-08",
 		"description": "d’Antoinette Rychner",
 		"src": "assets/img/f4-frost_def1.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"arthur": {
+	{
+		"id": "arthur",
 		"title": "Arthur Besson",
-		"date": "2018-10-08 11:27:10",
+		"date": "2018-10-08",
 		"description": "",
 		"src": "assets/img/f4-last1.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"leprest": {
+	{
+		"id": "leprest",
 		"title": "Allain Leprest porte un joli nom",
-		"date": "2018-10-08 11:27:10",
+		"date": "2018-10-08",
 		"description": "par la Cie 5\/4",
 		"src": "assets/img/f4-leprest-20181.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"bordmer": {
+	{
+		"id": "bordmer",
 		"title": "Bord de mer",
-		"date": "2018-10-08 11:27:10",
+		"date": "2018-10-08",
 		"description": "de Véronique Olmi",
 		"src": "assets/img/f4-221-bord_de_mer1.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"voyage": {
+	{
+		"id": "voyage",
 		"title": "Voyage au bout de la nuit",
-		"date": "2018-10-08 11:27:10",
+		"date": "2018-10-08",
 		"description": "d’après l’oeuvre de Louis Ferdinand Céline\r\nmise en scène Pascal Francfort",
 		"src": "assets/img/f4-221-voyage_celine1.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"dreamland": {
+	{
+		"id": "dreamland",
 		"title": "Nobody dies in dreamland",
-		"date": "2018-10-08 11:27:10",
+		"date": "2018-10-08",
 		"description": "de Attilio Sandro Palese",
 		"src": "assets/img/f4-nobody1.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"pluie": {
+	{
+		"id": "pluie",
 		"title": "La pluie",
-		"date": "2018-10-08 11:27:10",
+		"date": "2018-10-08",
 		"description": "de Daniel Keene",
 		"src": "assets/img/f4-221-lapluie1.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"emma": {
+	{
+		"id": "emma",
 		"title": "Emma",
-		"date": "2018-10-08 11:27:10",
+		"date": "2018-10-08",
 		"description": "par la Cie jours tranquilles",
 		"src": "assets/img/f4_emma_def1.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"eyolf": {
+	{
+		"id": "eyolf",
 		"title": "Eyolf",
-		"date": "2018-10-08 11:27:10",
+		"date": "2018-10-08",
 		"description": "d’après Henrik Ibsen",
 		"src": "assets/img/f4-eyolf-def1.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"poorme": {
+	{
+		"id": "poorme",
 		"title": "Poor me",
-		"date": "2018-10-09 14:33:03",
+		"date": "2018-10-09",
 		"description": "de Simon Gerber, Lee Maddeford, Daniel Perrin, Mimmo Pisino et Luigi Galati",
 		"src": "assets/img/a3_poorme.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"dames": {
+	{
+		"id": "dames",
 		"title": "Deux petites dames",
-		"date": "2018-10-09 14:33:03",
+		"date": "2018-10-09",
 		"description": "de Pierre Notte",
 		"src": "assets/img/a3_deux_dames.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"trees": {
+	{
+		"id": "trees",
 		"title": "Back to the trees",
-		"date": "2018-10-09 14:33:03",
+		"date": "2018-10-09",
 		"description": "d’après « Pourquoi j’ai mangé mon père » de Roy Lewis",
 		"src": "assets/img/f4-back_to_the_trees.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"formular": {
+	{
+		"id": "formular",
 		"title": "Formular:ch",
-		"date": "2018-10-09 14:33:03",
+		"date": "2018-10-09",
 		"description": "de et par Das Ventil",
 		"src": "assets/img/f4-formular.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"gloire": {
+	{
+		"id": "gloire",
 		"title": "Histoire sans gloire",
-		"date": "2018-10-09 14:33:03",
+		"date": "2018-10-09",
 		"description": "par Cécile Goussard, Adrien Mani,\r\nMatteo Prandi et Marie Ripoll",
 		"src": "assets/img/f4-histoires.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"lausanoir": {
+	{
+		"id": "lausanoir",
 		"title": "Lausan'noir",
-		"date": "2018-10-09 14:33:03",
+		"date": "2018-10-09",
 		"description": "Festival du polar",
 		"src": "assets/img/f4-lausannoir.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"midi21": {
+	{
+		"id": "midi21",
 		"title": "Midi.21",
-		"date": "2018-10-09 14:33:03",
+		"date": "2018-10-09",
 		"description": "",
 		"src": "assets/img/f4-midi21.jpg",
 		"media": "image",
 		"mode": "image",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"monarque": {
+	{
+		"id": "monarque",
 		"title": "Monarques",
-		"date": "2018-10-09 14:33:03",
+		"date": "2018-10-09",
 		"description": "D'après le roman de Philippe Rahmy. \r\nPar Sophie Kandaouroff",
 		"src": "assets/img/f4_monarques.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"paroles": {
+	{
+		"id": "paroles",
 		"title": "Paroles & musiques",
-		"date": "2018-10-09 14:33:03",
+		"date": "2018-10-09",
 		"description": "concerts de la haute école de musique contemporaine de Lausanne",
 		"src": "assets/img/f4-paroles_et_musique.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"saison": {
+	{
+		"id": "saison",
 		"title": "Saison",
-		"date": "2018-10-09 14:33:03",
+		"date": "2018-10-09",
 		"description": "",
 		"src": "assets/img/saison_1718_rgb.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"nous": {
+	{
+		"id": "nous",
 		"title": "Nous\/1",
-		"date": "2018-10-09 14:50:52",
+		"date": "2018-10-09",
 		"description": "de Fabrice Gorgerat",
 		"src": "assets/img/f4-nous.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"rempart": {
+	{
+		"id": "rempart",
 		"title": "Le dernier rempart",
-		"date": "2018-10-09 14:50:52",
+		"date": "2018-10-09",
 		"description": "spectacle d’Arthur Besson",
 		"src": "assets/img/f4-dernier_rempart.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"minimal": {
+	{
+		"id": "minimal",
 		"title": "Bienfait minimal",
-		"date": "2018-10-09 14:50:52",
+		"date": "2018-10-09",
 		"description": "concerts de la haute école de musique contemporaine de Lausanne",
 		"src": "assets/img/f4-bienfait_minimal.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"bernarda": {
+	{
+		"id": "bernarda",
 		"title": "Bernarda",
-		"date": "2018-10-09 14:50:52",
+		"date": "2018-10-09",
 		"description": "d’après « La maison de Bernarda Alba » de Federico Garcia Lorca\r\nadaptation et mise en scène Giulia Belet",
 		"src": "assets/img/f4-bernarda.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"adieu": {
+	{
+		"id": "adieu",
 		"title": "Adieu viellard et penses á moi si tu m'as lu",
-		"date": "2018-10-14 19:25:18",
+		"date": "2018-10-14",
 		"description": "concert théâtral \r\nd'après Les chants de Maldoror\r\nde Lautréamont\r\nproduit par Guillotine Miracle\r\n",
 		"src": "assets/img/maldoror_01.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "draft",
+		"status": "draft",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"isidro": {
+	{
+		"id": "isidro",
 		"title": "San Isidro fútbol club",
-		"date": "2018-10-14 20:37:05",
+		"date": "2018-10-14",
 		"description": "de Pino Cacucci",
 		"src": "assets/img/affiche1.jpg",
 		"media": "image",
 		"mode": "image",
-		"statut": "draft",
+		"status": "draft",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"alistair": {
+	{
+		"id": "alistair",
 		"title": "What's killing Alistair?",
-		"date": "2018-10-15 08:26:26",
+		"date": "2018-10-15",
 		"description": "cycle de rencontres autour de films de photographes",
 		"src": "assets/img/films-rencontres-2018.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "draft",
+		"status": "draft",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"confused": {
+	{
+		"id": "confused",
 		"title": "Confused",
-		"date": "2018-10-15 09:37:00",
+		"date": "2018-10-15",
 		"description": "concert",
 		"src": "assets/img/confused-2018.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "draft",
+		"status": "draft",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"passeport": {
+	{
+		"id": "passeport",
 		"title": "Passeport vacances",
-		"date": "2018-10-15 09:45:25",
+		"date": "2018-10-15",
 		"description": "affiche pour les centres d'animation \r\nde la ville de Lausanne",
 		"src": "assets/img/fasl-ete.jpg",
 		"media": "image",
 		"mode": "image",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"jucker": {
+	{
+		"id": "jucker",
 		"title": "",
-		"date": "2018-10-15 09:57:48",
+		"date": "2018-10-15",
 		"description": "",
 		"src": "assets/img/louisjucker.jpg",
 		"media": "image",
 		"mode": "image",
-		"statut": "draft",
+		"status": "draft",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"dear": {
+	{
+		"id": "dear",
 		"title": "John Dear",
-		"date": "2018-10-15 10:07:56",
+		"date": "2018-10-15",
 		"description": "concert folk",
 		"src": "assets/img/john_d.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "draft",
+		"status": "draft",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"semple": {
+	{
+		"id": "semple",
 		"title": "Rétrospective Peter Sempel",
-		"date": "2018-10-15 12:40:32",
+		"date": "2018-10-15",
 		"description": "",
 		"src": "assets/img/semple-2018.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "draft",
+		"status": "draft",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"severine": {
+	{
+		"id": "severine",
 		"title": "Séverine",
-		"date": "2018-10-15 14:02:50",
+		"date": "2018-10-15",
 		"description": "par la Cie Guillotine Miracle",
 		"src": "assets/img/severine-2018.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"kpt": {
+	{
+		"id": "kpt",
 		"title": "",
-		"date": "2018-10-16 09:26:55",
+		"date": "2018-10-16",
 		"description": "",
 		"src": "assets/img/kpt_web.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "draft",
+		"status": "draft",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"walpurgis": {
+	{
+		"id": "walpurgis",
 		"title": "Troisième nuit de Walpurgis",
-		"date": "2018-10-16 09:42:06",
+		"date": "2018-10-16",
 		"description": "",
 		"src": "assets/img/walpurgis.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"nina": {
+	{
+		"id": "nina",
 		"title": "Je ne suis pas la fille de Nina Simone",
-		"date": "2022-04-28 14:20:03",
+		"date": "2022-04-28",
 		"description": "de Julie Gilberte\r\npar la Cie des Ombres",
 		"src": "assets/img/f4-nina_simone.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"koburo": {
+	{
+		"id": "koburo",
 		"title": "Koburo",
-		"date": "2022-04-28 14:46:43",
+		"date": "2022-04-28",
 		"description": "de Christian Denisart\r\npar la Cie Les voyages extraordinaires",
 		"src": "assets/img/f4-koburo.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"sweeney": {
+	{
+		"id": "sweeney",
 		"title": "Sweeney Todd",
-		"date": "2022-04-28 14:58:27",
+		"date": "2022-04-28",
 		"description": "musiques et paroles de Stephen Sondheim\r\nlivret de Hugh Wheeler",
 		"src": "assets/img/f4-sweeney_todd.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	},
-	"espace": {
+	{
+		"id": "espace",
 		"title": "L'espace et nous",
-		"date": "2022-04-28 15:17:24",
+		"date": "2022-04-28",
 		"description": "conception, mise en scène\r\net jeu : Alain Borek",
 		"src": "assets/img/f4_espace_et_nous.jpg",
 		"media": "image",
 		"mode": "document",
-		"statut": "published",
+		"status": "published",
 		"credits": "",
 		"alt": "",
-		"composition": ""
+		"layout": ""
 	}
-}
+]
