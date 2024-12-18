@@ -1,5 +1,4 @@
 // @ts-check
-// @ts-ignore
 import mdx from "@astrojs/mdx";
 import favicons from "astro-favicons";
 import { defineConfig } from "astro/config";
@@ -7,6 +6,7 @@ import { defineConfig } from "astro/config";
 
 export default defineConfig({
     site: "https://www.ideographe.fr",
+    output: 'static',
     i18n: {
         locales: ["en", "fr"],
         defaultLocale: "fr",
@@ -22,7 +22,6 @@ export default defineConfig({
     build: {
         inlineStylesheets: `auto`,
     },
-    output: 'static',
     experimental: {
         contentIntellisense: true,
     },
