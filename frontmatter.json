@@ -1,0 +1,33 @@
+{
+  "$schema": "https://beta.frontmatter.codes/frontmatter.schema.json",
+  "frontMatter.framework.id": "astro",
+  "frontMatter.preview.host": "http://localhost:4321",
+  "frontMatter.framework.startCommand": "npm run dev",
+  "frontMatter.dashboard.openOnStart": false,
+  "frontMatter.git.enabled": false,
+  "frontMatter.config.dynamicFilePath": "[[workspace]]/frontmatter.config.cjs",
+  "frontMatter.content.publicFolder": {
+    "path": "src/assets",
+    "relative": true
+  },
+  "frontMatter.content.supportedFileTypes": [
+    "md",
+    "mdx"
+  ],
+  "frontMatter.content.defaultFileType": ".mdx",
+  "frontMatter.content.draftField": {
+    "name": "status",
+    "type": "choice",
+    "choices": [
+      "draft",
+      "published",
+      "deleted"
+    ]
+  },
+  "frontMatter.content.filters": [
+    "contentFolders",
+    "tags",
+    "categories"
+  ],
+  "frontMatter.content.sorting": [ ]
+}
