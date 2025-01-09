@@ -1,6 +1,6 @@
 import { file, glob } from "astro/loaders"
 import { defineCollection, z } from "astro:content"
-import { CollectionType, syncCollections } from "../frontmatter.astro.ts"
+import { syncLoader } from "../frontmatter/frontmatter.integration"
 
 
 // TYPES
@@ -34,44 +34,18 @@ const document = content.extend({
 
 // COLLECTIONS
 const posters = defineCollection({
-    loader: file("src/data/documents/posters.json"),
+    loader: syncLoader(document, file, "src/data/documents/posters.json"),
     schema: document,
 })
 
 const root = defineCollection({
-    loader: glob({ pattern: "*.mdx", base: "./src/content/root" }),
+    loader: syncLoader(article, glob, { pattern: "*.mdx", base: "./src/content/root" }),
     schema: article,
 })
 
 const articles = defineCollection({
-    loader: glob({ pattern: "*.mdx", base: "./src/content/articles" }),
+    loader: syncLoader(article, glob, { pattern: "*.mdx", base: "./src/content/articles" }),
     schema: article,
 })
 
 export const collections = { root, articles, posters }
-
-
-// Frontmatter Vscode Extension Synchronization
-await syncCollections(
-    {
-        name: "root",
-        type: CollectionType.Content,
-        schema: article,
-        base: "./src/content/root",
-        glob: "*.mdx"
-    },
-    {
-        name: "articles",
-        type: CollectionType.Content,
-        schema: article,
-        base: "./src/content/articles",
-        glob: "*.mdx"
-    },
-    {
-        name: "posters",
-        type: CollectionType.Data,
-        schema: document,
-        base: "./src/data/documents/posters.json",
-        glob: "*.json"
-    }
-)

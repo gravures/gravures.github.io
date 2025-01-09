@@ -1,18 +1,15 @@
-/**
- * code borrowed from <https://github.com/estruyf/vscode-front-matter/blob/main/ssg-scripts/astro.collections.mjs>
- *
-*/
-import zod, { type ZodTypeAny } from 'astro/zod'
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs"
+import type { AstroIntegration, HookParameters } from "astro"
+import type { Loader, LoaderContext } from "astro/loaders"
+import { file, glob } from "astro/loaders"
+import type { ZodSchema, ZodTypeAny } from "astro/zod"
+import zod from 'astro/zod'
+import crypto from "crypto"
+import { console } from "inspector"
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs"
 import path from "path"
-
 
 const { ZodArray, ZodBigInt, ZodBoolean, ZodDate, ZodDefault, ZodEffects, ZodEnum, ZodNumber, ZodObject, ZodOptional, ZodString, ZodUnion } = zod
 
-
-type FmZodString = zod.ZodString & {
-    fmFieldType?: string
-}
 
 interface ZodFieldInfo {
     name: string
@@ -35,9 +32,81 @@ type ZodField = {
     defaultValue?: string
 }
 
+type FmZodString = zod.ZodString & {
+    fmFieldType?: string
+}
+
+enum CollectionType {
+    Content,
+    Data,
+    Media
+}
+
+type AstroCollection = {
+    name: string
+    type: CollectionType
+    schema: ZodSchema
+    base: string
+    glob: string
+}
+
+
+class FmSchema {
+    private static schemas: ZodSchema[] = []
+    private static processed: ZodFieldInfo[][] = []
+
+    readonly id: number
+    readonly name: string
+    readonly type: string
+    readonly fields: ZodFieldInfo[]
+
+    constructor(schema: ZodSchema) {
+        this.id = this.processSchema(schema)
+        this.name = `astro_schema_${this.id}`
+        this.type = "content"
+        this.fields = FmSchema.processed[this.id]
+    }
+
+    /**
+    * Astro schema pre-processing.
+    */
+    private processSchema(schema: ZodSchema): number {
+        let id = FmSchema.schemas.indexOf(schema)
+
+        if (id === -1) {
+            FmSchema.schemas.push(schema)
+            id = FmSchema.schemas.length - 1
+            const _schema = FmSchema.schemas[id]
+
+            /**
+            * const _schema: ZodTypeAny =
+            *    (typeof tmp === "function")
+            *        ? tmp({
+            *            image() {
+            *                const field: FmZodString = zod.string()
+            *                field.fmFieldType = "image"
+            *                return field
+            *            }
+            *        })
+            *        : tmp
+            */
+            FmSchema.processed.push(extractFieldInfoFromShape(_schema))
+        }
+        return id
+    }
+
+    public get object() {
+        return {
+            name: this.name,
+            type: this.type,
+            fields: this.fields
+        }
+    }
+}
+
 
 /**
- * Process the Zod field.
+ * Process a Zod field.
  *
  * Handle various type transformations and assignments.
  */
@@ -164,13 +233,12 @@ function extractFieldInfoFromShape(type: ZodTypeAny): ZodFieldInfo[] {
 }
 
 
-/*
-*  Writes config files in the .frontmatter/config directory.
-*/
-function writeFrontMatterConfig(
+/**
+ * Writes config files in the .frontmatter/config directory.
+ */
+function writeFrontMatterConfig(object: object, name: string, fmProperty: string): void {
     // HACK: Astro discourages using node module but does
     //       not provide an api for writing files.
-    object: object, name: string, fmProperty: string): void {
     const baseConfigPath = "./.frontmatter/config"
 
     try {
@@ -186,52 +254,10 @@ function writeFrontMatterConfig(
 }
 
 
-type AstroSchema = ZodTypeAny | Function
-type SchemaObject = {
-    name: string
-    type: string
-    fields: ZodFieldInfo[]
-}
-
-type FmSchema = {
-    schemaId: number
-    schemas: AstroSchema[]
-    object: SchemaObject
-}
-
-enum CollectionType {
-    Content,
-    Data
-}
-
-type AstroCollection = {
-    name: string
-    type: CollectionType
-    schema: AstroSchema
-    base: string
-    glob: string
-}
-
-
-function processAstroSchema(schema: FmSchema): FmSchema {
-    const tmp = schema.schemas[schema.schemaId]
-    const _schema: ZodTypeAny =
-        (typeof tmp === "function")
-            ? tmp({
-                image() {
-                    const field: FmZodString = zod.string()
-                    field.fmFieldType = "image"
-                    return field
-                }
-            })
-            : tmp
-    schema.object.fields = extractFieldInfoFromShape(_schema)
-    schema.object.type = "content"
-
-    return schema
-}
-
-
+/**
+ *  Writes .frontmatter/config/taxonomy/contenttypes/*.json
+ *  and .frontmatter/config/content/pageFolders/*.json files.
+ */
 function writeContentTypes(item: AstroCollection, schema: FmSchema): void {
     writeFrontMatterConfig(
         schema.object,
@@ -242,7 +268,7 @@ function writeContentTypes(item: AstroCollection, schema: FmSchema): void {
         title: item.name,
         path: path.join("[[workspace]]", item.base),
         contentTypes: [schema.object.name],
-        // excludePaths: [`!(${item.glob})`]
+        // FIXME: excludePaths: [`!(${item.glob})`]
     },
         item.name,
         "content.pageFolders"
@@ -250,6 +276,10 @@ function writeContentTypes(item: AstroCollection, schema: FmSchema): void {
 }
 
 
+/**
+ *  Writes .frontmatter/config/data/types/*.json
+ *  and .frontmatter/config/data/folders/*.json files.
+ */
 function writeDataTypes(item: AstroCollection, schema: FmSchema): void {
     const jsonFile = path.join(".", ".astro", "collections", `${item.name}.schema.json`)
     const jsonSchema = JSON.parse(readFileSync(jsonFile, "utf-8"))
@@ -290,43 +320,119 @@ function writeDataTypes(item: AstroCollection, schema: FmSchema): void {
 }
 
 
-async function syncCollections(...collections: AstroCollection[]): Promise<void> {
-    // Get all the schemas referenced by the collections
-    const astroSchemas: AstroSchema[] =
-        [...new Set(collections.map((item) => {
-            return item.schema
-        }))]
+/**
+ *
+ */
+function writeMediaTypes(item: AstroCollection, schema: FmSchema): void {
+    // TODO: implements writeMediaTypes!
+}
 
-    // Process the schemas
-    const schemas: FmSchema[] = astroSchemas.map((schema, index) => {
-        return processAstroSchema({
-            schemaId: index,
-            schemas: astroSchemas,
-            object: {
-                name: `astro_schema_${index}`,
-                type: "content",
-                fields: []
-            }
-        })
-    })
 
-    // Process the collections
+const Store: {
+    hashMediaDb: string,
+    collections: AstroCollection[],
+} = {
+    hashMediaDb: "",
+    collections: [],
+}
+
+
+/**
+ * Synchronize a single Astro collection with Frontmatter data types configuration.
+ */
+async function syncCollection(collection: AstroCollection): Promise<void> {
+    const schema = new FmSchema(collection.schema)
     try {
-        for (const item of collections) {
-            const _schema = schemas[astroSchemas.indexOf(item.schema)]
-            if (item.type === CollectionType.Content)
-                writeContentTypes(item, _schema)
-            else
-                writeDataTypes(item, _schema)
+        switch (collection.type) {
+            case CollectionType.Content:
+                writeContentTypes(collection, schema)
+            case CollectionType.Data:
+                writeDataTypes(collection, schema)
+            case CollectionType.Media:
+                writeMediaTypes(collection, schema)
         }
         console.log("[syncCollections] Collections generated successfully")
-    }
-    catch (error: any) {
+    } catch (error: any) {
         console.log(`[syncCollections] ${error.message}`)
     }
 }
 
 
-export { CollectionType, syncCollections }
-export type { AstroCollection }
+/**
+ *  Returns the hash string of a file.
+ *
+ *  Returns an empty string if the file does not exist.
+ */
+function hashFile(path: string): string {
+    if (!existsSync(path))
+        return ""
+    return crypto.createHash("sha256").update(readFileSync(path, "utf-8")).digest("hex")
+}
 
+
+async function syncMediaDB({ config, addWatchFile, command, isRestart, logger }: HookParameters<"astro:config:setup">) {
+    if (command === "dev") {
+        const mediaDb = path.join(config.root.pathname, ".frontmatter/database/mediaDb.json")
+
+        if (!isRestart) {
+            Store.hashMediaDb = hashFile(mediaDb)
+            addWatchFile(mediaDb)
+        } else {
+            const _hash = hashFile(mediaDb)
+            if (_hash !== Store.hashMediaDb) {
+                logger.info("FrontMatter Media database has changed. Syncing...")
+                Store.hashMediaDb = _hash
+            }
+        }
+    }
+}
+
+
+/**
+ * Astro Integration entry point
+ */
+export default function frontmatterIntegration(): AstroIntegration {
+    return {
+        name: "frontmatter-integration",
+        hooks: {
+            "astro:config:setup": syncMediaDB,
+            "astro:config:done": ({ logger }) => {
+                logger.info("FrontMatter integration ready ;)")
+            },
+            "astro:server:setup": async ({ logger, refreshContent }) => {
+                // await refreshContent({ loaders: ["file", "glob"] })
+                logger.info("FrontMatter server ok ;)")
+            }
+        }
+    }
+}
+
+
+/**
+ * Returns a loader that syncs the content of a collection.
+ */
+function syncLoader(schema: ZodSchema, loader: typeof file | typeof glob, ...options: any[]): Loader {
+    const _loader = loader(...options)
+
+    const collection: Partial<AstroCollection> = {
+        type: (loader instanceof glob) ? CollectionType.Content : CollectionType.Data,
+        schema: schema,
+        base: (loader instanceof glob) ? options[0].base : options[0],
+        glob: (loader instanceof glob) ? options[0].pattern : "*.json",  // TODO: file loader glob?
+    }
+
+    return {
+        name: `syncing-${loader.name}`,
+        load: async (context: LoaderContext): Promise<void> => {
+            collection.name = context.collection
+
+            context.logger.info(`syncing ${context.collection}...`)
+            await syncCollection(collection as AstroCollection)
+            return await _loader.load(context)
+        },
+        schema: schema,
+    }
+}
+
+
+export { syncLoader }
