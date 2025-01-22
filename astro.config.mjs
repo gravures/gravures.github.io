@@ -2,7 +2,6 @@
 import mdx from "@astrojs/mdx";
 import favicons from "astro-favicons";
 import { defineConfig } from "astro/config";
-import frontmatterIntegration from "./frontmatter/frontmatter.integration";
 
 
 export default defineConfig({
@@ -19,7 +18,6 @@ export default defineConfig({
     integrations: [
         mdx(),
         favicons(),
-        frontmatterIntegration(),
     ],
     build: {
         inlineStylesheets: `auto`,
