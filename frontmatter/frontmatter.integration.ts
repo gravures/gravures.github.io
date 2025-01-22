@@ -488,13 +488,16 @@ class MediaDbSync extends BaseLoader {
         let db
         try {
             db = JSON.parse(readFileSync(MediaDbSync._mediaDb, "utf-8"))
-        } catch (SyntaxError) { }
-
-        for (const _p of this._mediaFolder.split(path.sep))
-            if (_p in db)
-                db = db[_p]
-            else
-                return new Map()
+            for (const _p of this._mediaFolder.split(path.sep))
+                if (_p in db)
+                    db = db[_p]
+                else {
+                    db = {}
+                    break
+                }
+        } catch (Error) {
+            setTimeout(this.loadMediaDb, 100)
+        }
         return new Map(Object.entries(db))
     }
 
