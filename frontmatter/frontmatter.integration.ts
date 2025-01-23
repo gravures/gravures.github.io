@@ -75,6 +75,7 @@ class Schema {
     }
 
     public get jsonSchema(): any {
+        // NOTE: https://github.com/StefanTerdell/zod-to-json-schema/tree/master
         return zodToJsonSchema(
             this.zodSchema,
             { name: this.name, dateStrategy: "format:date" }
