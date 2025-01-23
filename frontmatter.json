@@ -5,7 +5,6 @@
   "frontMatter.framework.startCommand": "npm run dev",
   "frontMatter.dashboard.openOnStart": false,
   "frontMatter.git.enabled": false,
-  "frontMatter.config.dynamicFilePath": "[[workspace]]/frontmatter/frontmatter.config.cjs",
   "frontMatter.content.publicFolder": {
     "path": "src/assets",
     "relative": true
