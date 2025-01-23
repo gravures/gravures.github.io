@@ -255,7 +255,7 @@ abstract class BaseLoader implements Loader {
         this.collection = collection
     }
 
-    public static clearFrontMatterConfig(): void {
+    private static clearFrontMatterConfig(): void {
         if (BaseLoader.isClean)
             return
 
