@@ -2,10 +2,12 @@
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
-    const documents = await getCollection("posters");
-    // TODO: filter statut === published
+    const documents = await getCollection("posters", ({ data }) => {
+        return data.status === "published";
+    });
+
     return documents.map((document) => ({
-        params: { id: document.id },
+        params: { id: document.id, slug: document.data.slug },
         props: { document },
     }));
 }

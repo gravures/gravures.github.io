@@ -3,7 +3,7 @@ import type { Loader, LoaderContext } from "astro/loaders"
 import { file, glob } from "astro/loaders"
 import type { ZodSchema, ZodTypeAny } from "astro/zod"
 import zod from "astro/zod"
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs"
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs"
 import path from "path"
 import { zodToJsonSchema } from "zod-to-json-schema"
 
@@ -241,14 +241,29 @@ class Schema {
 
 
 abstract class BaseLoader implements Loader {
+    private static readonly baseConfigPath = "./.frontmatter/config"
+    private static isClean: boolean = false
+
     protected readonly _loader: Loader
     protected readonly _schema: ZodSchema
     protected collection: Partial<AstroCollection>
 
     protected constructor(schema: ZodSchema, loader: Loader, collection: Partial<AstroCollection>) {
+        BaseLoader.clearFrontMatterConfig()
         this._loader = loader
         this._schema = schema
         this.collection = collection
+    }
+
+    public static clearFrontMatterConfig(): void {
+        if (BaseLoader.isClean)
+            return
+
+        for (const prop of ["content", "data", "media", "taxonomy"]) {
+            const configPath = path.join(BaseLoader.baseConfigPath, prop)
+            rmSync(configPath, { recursive: true, force: true })
+        }
+        BaseLoader.isClean = true
     }
 
     abstract load(context: LoaderContext): Promise<void>
@@ -265,14 +280,11 @@ abstract class BaseLoader implements Loader {
      * Writes config files in the .frontmatter/config directory.
      */
     protected writeFrontMatterConfig(object: object, name: string, fmProperty: string): void {
-        // HACK: Astro discourages using node module but does
-        //       not provide an api for writing files.
-        const baseConfigPath = "./.frontmatter/config"
-
         try {
-            // const configSchema = "https://frontmatter.codes/config/taxonomy.contenttypes.schema.json";
-            const configPath = path.join(baseConfigPath, ...fmProperty.split("."))
-            const jsonStr = JSON.stringify(object, null, 2)
+            const configSchema = `https://frontmatter.codes/config/${fmProperty.toLowerCase()}.schema.json`
+            const configPath = path.join(BaseLoader.baseConfigPath, ...fmProperty.split("."))
+            const o = Object.assign({ $schema: configSchema }, object)
+            const jsonStr = JSON.stringify(o, null, 2)
 
             mkdirSync(configPath, { recursive: true })
             writeFileSync(path.join(configPath, `${name}.json`), jsonStr)
@@ -479,6 +491,9 @@ class MediaDbSync extends BaseLoader {
 
         if (context.watcher)
             context.watcher.on("change", this.sync)
+
+        // loads the collection in dataStore
+        await this._loader.load(this._context)
     }
 
     /**
@@ -551,7 +566,6 @@ class MediaDbSync extends BaseLoader {
         db[_path[0]] = o
 
         writeFileSync(MediaDbSync._mediaDb, JSON.stringify(db))
-        // await this._loader.load(this._context)
     }
 
     /**

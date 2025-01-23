@@ -22,7 +22,7 @@ const image = z.object({
     title: z.string(),
     description: z.string(),
     alt: z.string(),
-    date: z.date(),
+    date: z.string().transform((str) => new Date(str)),
     credits: z.string(),
     status: z.enum(["draft", "published", "deleted"]),
     layout: z.string().optional(),
