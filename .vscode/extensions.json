@@ -4,7 +4,7 @@
     "unifiedjs.vscode-mdx",
     "sibiraj-s.vscode-scss-formatter",
     "somewhatstationery.some-sass",
-    "eliostruyf.vscode-front-matter-beta"
+    "eliostruyf.vscode-front-matter"
   ],
   "unwantedRecommendations": [ ]
 }
