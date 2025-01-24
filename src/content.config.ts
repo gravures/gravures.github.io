@@ -1,6 +1,6 @@
+import { MediaDbSync, syncLoader } from "astro-frontmatter-integration"
 import { glob } from "astro/loaders"
 import { defineCollection, z } from "astro:content"
-import { MediaDbSync, syncLoader } from "../frontmatter/frontmatter.integration"
 
 
 // TYPES

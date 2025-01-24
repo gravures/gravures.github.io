@@ -14,7 +14,10 @@
     "astro-favicons": "^3.0.6"
   },
   "devDependencies": {
-    "@types/node": "^22.10.2",
+    "@types/node": "^22.10.10",
     "sass-embedded": "^1.82.0"
-  }
+  },
+  "workspaces": [
+    "integrations/astro-frontmatter-integration"
+  ]
 }

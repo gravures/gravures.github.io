@@ -1,0 +1,28 @@
+{
+  "name": "astro-frontmatter-integration",
+  "author": "gilles coissac",
+  "license": "GPL-3.0-or-later",
+  "version": "1.0.0",
+  "description": "Loaders that keeps the frontmatter vscode plugin synchronized with your defined astro collections.",
+  "type": "module",
+  "main": "index.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gravures/gravures.github.io.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gravures/gravures.github.io/issues"
+  },
+  "homepage": "https://github.com/gravures/gravures.github.io/integrations/astro-frontmatter-integration#readme",
+  "keywords": [
+    "with-astro",
+    "astro-loaders",
+    "astro-integration"
+  ],
+  "dependencies": {
+    "astro": "^5.0.4"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.10"
+  }
+}

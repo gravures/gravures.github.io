@@ -4,7 +4,7 @@ import { file, glob } from "astro/loaders"
 import type { ZodSchema, ZodTypeAny } from "astro/zod"
 import zod from "astro/zod"
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs"
-import path from "path"
+import path from "node:path"
 import { zodToJsonSchema } from "zod-to-json-schema"
 
 const { ZodArray, ZodBigInt, ZodBoolean, ZodDate, ZodDefault, ZodEffects, ZodEnum, ZodNumber, ZodObject, ZodOptional, ZodString, ZodUnion } = zod
