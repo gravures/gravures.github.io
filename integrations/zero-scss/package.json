@@ -1,0 +1,21 @@
+{
+  "name": "zero-scss",
+  "author": "gilles coissac",
+  "license": "GPL-3.0-or-later",
+  "version": "1.0.0",
+  "description": "A convenient scss framework.",
+  "main": "zero.scss",
+  "style": "zero.scss",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gravures/gravures.github.io.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gravures/gravures.github.io/issues"
+  },
+  "homepage": "https://github.com/gravures/gravures.github.io/integrations/zero-scss#readme",
+  "keywords": [
+    "scss",
+    "framework"
+  ]
+}
