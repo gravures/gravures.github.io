@@ -1,0 +1,9 @@
+[production]
+> 0.5%
+last 2 versions
+Firefox ESR
+not dead
+
+[test]
+last 2 chrome version
+last 2 firefox version
