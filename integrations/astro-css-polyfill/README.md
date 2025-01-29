@@ -8,11 +8,11 @@ First I found it cool to have a tool to auto magically injecting javascript poly
 
 ## How it works
 
-This integration includes a postcss plugin that looks for selectors or special poperties added by the *postcss-preset-env* plugin.  It also check for some additional polyfills if such feature is unsuppoted in regard of the browserslist settings. This way a set of javascript polyfills to be included is produced.
+This integration includes a postcss plugin that looks for selectors or special properties added by the *postcss-preset-env* plugin.  It also check for some additional polyfills if such feature is unsupported in regard of the browserslist settings. This way a set of javascript polyfills to be included is produced.
 
 In a second step each requested polyfill is injected using the astro integration api. Script will be resolved and optimized by vite and imported as an esm module in the page's Head.
 
-> **Important!**: One caveat of the current design is that all polyfills will be bundled in all pages. At no stage this integration could determin if such polyfill is only needed by the *component A* or by the *About page*.
+> **Important!**: One caveat of the current design is that all polyfills will be bundled in all pages. At no stage this integration could determine if such polyfill is only needed by the *component A* or by the *About page*.
 
  
 
