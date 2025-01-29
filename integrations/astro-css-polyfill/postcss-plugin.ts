@@ -51,7 +51,7 @@ const polyfills: { [index: string]: Polyfill } = {
     cssContainerQueries: {
         // https://github.com/GoogleChromeLabs/container-query-polyfill
         name: "css-container-queries",
-        code: "",
+        code: "import 'container-query-polyfill;'",
         enabled: false,
         done: false
     }
